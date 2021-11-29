@@ -303,7 +303,7 @@ module.exports = function routes(app, logger) {
 
 
      // add a user
-     app.put('/adduser', (req, res) => {
+     app.put('/joinbattle', (req, res) => {
       //console.log(req.body.username);
       console.log('hello' + req.body);
       // obtain a connection from our pool of connections
@@ -314,7 +314,7 @@ module.exports = function routes(app, logger) {
           res.status(400).send('Problem obtaining MySQL connection'); 
         } else {
           // if there is no issue obtaining a connection, execute query and release connection
-          connection.query('UPDATE `db`.`messages` SET `user2` = \'' + req.body.user2 + '\' WHERE battleID = \'' + req.body.battleID + '\'', function (err, rows, fields) {
+          connection.query('UPDATE `db`.`battles` SET `user2` = \'' + req.body.user2 + '\' WHERE battleID = \'' + req.body.battleID + '\'', function (err, rows, fields) {
             connection.release();
             if (err) {
               // if there is an error with the query, log the error

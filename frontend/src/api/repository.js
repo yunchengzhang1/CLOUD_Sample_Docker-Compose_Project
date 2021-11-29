@@ -11,6 +11,7 @@ export class Repository {
     };
 
     addBattle(battle){
+        console.log("Adding Battle", battle);
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/makeBattle`, battle, this.config)
                 .then(x => resolve(x.data))

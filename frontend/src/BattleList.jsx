@@ -11,31 +11,25 @@ export class BattleList extends React.Component {
     joinBattle() {
         console.log("joining battle");
     }
-    componentDidMount() {
-        console.log("setting state")
-        this.repository.getBattles().then(x => {
-            console.log(x.data);
-            this.setState({battles: x.data})});
-    }
     render() {
         return <div>
-            {this.state.battles.length === 0 &&
+            {this.props.battles.length === 0 &&
                 <div>
                     No active battles
                 </div>
             }
             <div className="list-group ">
-                {this.state.battles.map(x =>
-                    <div className="list-group-item" key={x.id}>
-                        <div className="card" onClick={e => this.props.onBattleSelected(x.id)}>
+                {this.props.battles.map(x =>
+                    <div className="list-group-item" key={x.battleID}>
+                        <div className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
                             <div className="card-body">
-                                <h5 className="card-title">{x.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">USER NAME vs USER NAME TODO</h6>
-                                <p className="card-text">{x.description}</p>
+                                <h5 className="card-title">{x.battleTitle}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">{x.user1} vs {x.user2}</h6>
+                                <p className="card-text">{x.battleDescription}</p>
                             </div>
-                            {x.userID2 === undefined && (
+                            {x.user2 === "undefined" && (
                                 <form>
-                                    <button type="button" onClick={this.joinBattle(x.id)}>Join Battle</button>
+                                    <button type="button" onClick={this.joinBattle(x.battleID)}>Join Battle</button>
                                 </form>
                             )}
                         </div>

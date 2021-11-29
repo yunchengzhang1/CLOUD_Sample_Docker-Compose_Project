@@ -8,13 +8,13 @@ import { Registration } from "./Registration";
 
 class App extends Component{
   state={
-    userId: null,
+    userID: null,
     isAuthenticated: false
   }
 
   setUser(id){
     this.setState({isAuthenticated: true});
-    this.setState({userId: id});
+    this.setState({userID: id});
   }
 
   render(){
@@ -22,7 +22,7 @@ class App extends Component{
       <Switch>
         <Route exact path="/" render={() => <Login onSetUser={id => this.setUser(id)} isAuthenticated={this.state.isAuthenticated}/>}/>
         <Route exact path="/registration" component={Registration}/>
-        <Route exact path="/battlePage" render={()=> <BattlePage userId={this.state.userId}/>}/>
+        <Route exact path="/battlePage" render={()=> <BattlePage userID={this.state.userID}/>}/>
       </Switch>
     </Router>
   }

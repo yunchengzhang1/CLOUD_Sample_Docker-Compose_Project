@@ -22,7 +22,7 @@ export class BattlePage extends React.Component {
     }
 
     setActiveBattle(battleID) {
-        console.log(battleID);
+        console.log("Selected battleID", battleID);
         let battle = this.searchBattleID(battleID);
         console.log(battle[0]);
         this.setState({activeBattle: battle[0]});
@@ -42,22 +42,34 @@ export class BattlePage extends React.Component {
         this.repository.postMessage();
     }
 
+    handleChange = async (event) => {
+        this.setState({
+            battles: this.repository.getBattles()
+        })
+    }
+
     render() {
         return <div>
             <div className="sidebar">
                 <div>
-                    <BattleList onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
-                    <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.state.currentUserID}/>
+                    <BattleList onChange={this.handleChange} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
+                    <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
                 </div>
             </div>
             <div className="battleLog">
                 <div>
-                    <BattleLog battleID={this.state.activeBattle.id} />
+                    <BattleLog battleID={this.state.activeBattle.battleID} />
                     {this.state.activeBattle.userID1 === this.props.userId && (
-                        <MessageBox activeBattleID={this.state.activeBattle.id} userID={this.state.currentUserID} onMessageSent={text => this.sendMessage(text)}/>
+                        <MessageBox activeBattleID={this.state.activeBattle.battleID} userID={this.state.currentUserID} onMessageSent={text => this.sendMessage(text)}/>
                     )}
                 </div>
             </div>
         </div>
+    }
+    componentDidMount() {
+        console.log("setting state")
+        this.repository.getBattles().then(x => {
+            console.log(x.data);
+            this.setState({battles: x.data})});
     }
 }

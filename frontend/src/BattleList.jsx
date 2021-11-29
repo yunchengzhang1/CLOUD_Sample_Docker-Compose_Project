@@ -29,7 +29,7 @@ export class BattleList extends React.Component {
                             </div>
                             {x.user2 === "undefined" && (
                                 <form>
-                                    <button type="button" onClick={this.joinBattle(x.battleID)}>Join Battle</button>
+                                    <button type="button" onClick={() => this.joinBattle(x.battleID)}>Join Battle</button>
                                 </form>
                             )}
                         </div>

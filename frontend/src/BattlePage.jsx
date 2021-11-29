@@ -5,6 +5,9 @@ import { BattleLog } from './BattleLog';
 import './styles/BattlePage.css'
 import { MessageBox } from './MessageBox';
 import { Repository } from './api';
+
+import { Redirect } from 'react-router-dom';
+
 export class BattlePage extends React.Component {
     repository = new Repository();
     state = {
@@ -49,6 +52,10 @@ export class BattlePage extends React.Component {
     }
 
     render() {
+        if(!this.props.isAuthenticated){
+            console.log("authenticated");
+            return <Redirect to="/"></Redirect>
+        }
         return <div>
             <div className="sidebar">
                 <div>

@@ -25,7 +25,7 @@ export class Repository {
     joinBattle(battleID, user2) {
         console.log("Joining Battle", battleID, user2);
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/joinbattle`, battleID, user2, this.config)
+            axios.put(`${this.url}/joinbattle`, {battleID, user2}, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);

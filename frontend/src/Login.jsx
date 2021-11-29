@@ -12,15 +12,11 @@ export class Login extends React.Component {
     };
 
     validateLogin(){
-        //TODO: AXIOS CALL TO VALIDATE LOGIN
-        //userID = getUserID axios call
-        //FOR NOW: JUST LOGIN SUCCESSFUL
-        var userID = uuidv1(); //uniqueID generator
-        //this.props.onLogin(userID);
-        //this.props.history.push("/battlePage");
+        var userID = Date.now().toString(36) + Math.random().toString(36); //uniqueID generator
         this.props.onSetUser(userID);
         return <Redirect to="/battlePage"></Redirect>
     }
+    
     render (){
         const isAuthenticated = this.props.isAuthenticated;
         if (isAuthenticated){

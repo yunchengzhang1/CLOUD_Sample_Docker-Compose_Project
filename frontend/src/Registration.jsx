@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/Registration.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export class Registration extends React.Component {
 
@@ -47,7 +47,7 @@ export class Registration extends React.Component {
             <button onClick={e => this.regiDone()}>
                 Login
             </button>
-            <p>nevermind, take me to <Link to={"/"}>LOGIN</Link></p>
+            <p>Nevermind, take me to <Link to={"/"}>Login</Link></p>
         </section>
         
         </>;

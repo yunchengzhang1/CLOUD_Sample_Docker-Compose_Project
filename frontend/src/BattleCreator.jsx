@@ -1,31 +1,18 @@
 import React from "react";
-import axios from "axios";
 import { Battle } from "./models/Battle";
+import { Repository } from "./api/repository";
+
 export class BattleCreator extends React.Component {
+    repository = new Repository();
     state = {
         title: "",
         description: ""
     }
 
     addBattle = (e) => {
-        //uuidv() makes a unique ID
-        //need to somehow get current user ID
         e.preventDefault();
-        var url = 'localhost'
-        var uniqueID = (new Date()).getTime().toString(36);
-        this.props.onBattleAdded(new Battle(uniqueID, this.state.title, this.state.description, this.props.userID, undefined));
-        axios.post(`http://${url}:8000/makeBattle`, 
-        {
-            battleTopic: this.state.title,
-            battleDescription: this.state.description,
-            user1: this.props.userID,
-            user2: null
-        }).then(res => {
-            console.log("added battle");
-            console.log(res);
-        }).catch(err => {
-            console.log(err)
-        });
+        let battle = new Battle()
+        this.repository.addBattle(battle);
         this.setState({title: ""});
         this.setState({description: ""});
     };

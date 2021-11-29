@@ -1,26 +1,20 @@
-import React from "react";
-import axios from "axios";
-export class BattleLog extends React.Component{
-    state = {
-        messages: []
-    };
-    getMessages(){
-        var url = 'localhost'
-        axios.get(`http://${url}:8000/getmessagesbyid`, 
-        {
-            battleID: this.props.battleID
-        }).then(res => {
-            console.log("posted message");
-            console.log(res);
-        }).catch(err => {
-            console.log(err)
-        });
+import React, { useEffect, useState } from "react";
+import { Repository } from "./api";
+
+export const BattleLog = props => {
+    const repository = new Repository();
+    const [messages, setMessages] = useState(undefined);
+
+    useEffect(() => {
+        console.log("getting messages");
+        //repository.getMessagesById(props.battleID)
+    }, []);
+
+    if(!messages){
+        return <div>Loading...</div>
     }
-    render() {
-        this.getMessages();
-        return <div>
-            <h2>Battle Log</h2>
-            <div >Showing log for{this.props.battle}</div>
-        </div>
-    }
-}
+    return <div>
+        <h2>Battle Log</h2>
+        <div >Showing log for{this.props.battle}</div>
+    </div>
+};

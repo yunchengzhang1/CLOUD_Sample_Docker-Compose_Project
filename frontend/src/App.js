@@ -1,33 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './styles/App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import axios from 'axios';
 
 import { BattlePage } from './BattlePage';
 import { Login } from './Login'; 
 import { Registration } from "./Registration";
 
-function App(){
-  return(
-    <Router>
+class App extends Component{
+  state={
+    userId: null,
+    isAuthenticated: false
+  }
+
+  setUser(id){
+    this.setState({isAuthenticated: true});
+    this.setState({userId: id});
+  }
+
+  render(){
+    return <Router>
       <Switch>
-        <Route exact path="/" component={BattlePage}/>
-        <Route exact path="/login" component={Login}/>
+        <Route exact path="/" render={() => <Login onSetUser={id => this.setUser(id)} isAuthenticated={this.state.isAuthenticated}/>}/>
         <Route exact path="/registration" component={Registration}/>
+        <Route exact path="/battlePage" render={()=> <BattlePage userId={this.state.userId}/>}/>
       </Switch>
     </Router>
-  );
+  }
 }
-// export function App() {
-
-  
-//   // return<div className="App">
-    
-//   //   <BattlePage/>
-//   // </div>
-
-// }
 
 export default App;
 

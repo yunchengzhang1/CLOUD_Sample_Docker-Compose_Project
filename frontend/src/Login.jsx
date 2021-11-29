@@ -2,17 +2,31 @@ import './styles/Login.css';
 import React from 'react';
 import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
-
+import { Redirect } from 'react-router-dom';
 
 export class Login extends React.Component {
+    state = {
+        name: '',
+        email: '',
+        password: ''
+    };
+
     validateLogin(){
         //TODO: AXIOS CALL TO VALIDATE LOGIN
         //userID = getUserID axios call
         //FOR NOW: JUST LOGIN SUCCESSFUL
         var userID = uuidv1(); //uniqueID generator
-        this.props.onLogin(userID);
+        //this.props.onLogin(userID);
+        //this.props.history.push("/battlePage");
+        this.props.onSetUser(userID);
+        return <Redirect to="/battlePage"></Redirect>
     }
     render (){
+        const isAuthenticated = this.props.isAuthenticated;
+        if (isAuthenticated){
+            console.log("authenticated");
+            return <Redirect to="/battlePage"></Redirect>
+        }
         return <div>
             <section id="LoginPage">
                 {/* a box extending the width of the screen with margins up and down to show the background picture */}
@@ -25,16 +39,32 @@ export class Login extends React.Component {
                 a button to login
                 a generic login picture above these
                 */}
-                <input type={"text"} placeholder={"Username"}/> {/* this is for the username */}
+                <form className="container">
+                    <div className="form-group">
+                        <input type="info"
+                            id="name"
+                            name="name"
+                            value={this.state.name}
+                            placeholder={"Username"}
+                            onChange={ event => this.setState({ name: event.target.value }) }
+                            className="form-control" />
+                    </div>
 
-                <input type={"text"} placeholder={"Password"}/> {/* this is for the password */}
 
-                {/* this function (onClick={}) will need to be updated in future - this is to login */}
-                <button type="button" onClick={() => this.validateLogin()}>
-                    Login
-                </button>
-
-                {/* Add a link for a sign up option */}
+                    <div className="form-group">
+                        <input type="info"
+                            id="pass"
+                            name="password"
+                            value={this.state.password}
+                            placeholder={"Password"}
+                            onChange={ event => this.setState({ password: event.target.value }) }
+                            className="form-control" />
+                    </div>
+                    <button onClick={e => this.validateLogin()}>
+                        Login
+                    </button>
+                </form>
+                <br/>
                 <p>New user? <Link to={"/registration"}>SIGN UP</Link></p>
             </section>
         </div>

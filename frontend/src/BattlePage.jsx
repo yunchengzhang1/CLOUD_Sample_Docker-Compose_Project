@@ -30,7 +30,7 @@ export class BattlePage extends React.Component {
 
     searchBattleID(battleID){
         return this.state.battles.filter(battle => {
-            return battle.id === battleID;
+            return battle.battleID === battleID;
         })
     }
     
@@ -52,7 +52,7 @@ export class BattlePage extends React.Component {
         return <div>
             <div className="sidebar">
                 <div>
-                    <BattleList onChange={this.handleChange} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
+                    <BattleList onChange={this.handleChange} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
                 </div>
             </div>

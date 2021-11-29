@@ -13,9 +13,10 @@ export class BattleCreator extends React.Component {
         console.log("adding battle");
         e.preventDefault();
         let battle = new Battle()
-        battle.description = this.state.description;
+        battle.battleDescription = this.state.description;
         battle.battleTopic = this.state.title;
         battle.user1 = this.props.userID;
+        battle.battleID = Date.now().toString(36) + Math.random().toString(36);
         this.repository.addBattle(battle);
         this.setState({title: ""});
         this.setState({description: ""});

@@ -300,4 +300,31 @@ module.exports = function routes(app, logger) {
       }
     });
   });
+
+
+     // post a message
+     app.put('/adduser', (req, res) => {
+      //console.log(req.body.username);
+      console.log('hello' + req.body);
+      // obtain a connection from our pool of connections
+      pool.getConnection(function (err, connection){
+        if(err){
+          // if there is an issue obtaining a connection, release the connection instance and log the error
+          logger.error('Problem obtaining MySQL connection',err)
+          res.status(400).send('Problem obtaining MySQL connection'); 
+        } else {
+          // if there is no issue obtaining a connection, execute query and release connection
+          connection.query('UPDATE `db`.`messages` SET `user2` = \'' + req.body.user2 + '\' WHERE battleID = \'' + req.body.battleID + '\'', function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              // if there is an error with the query, log the error
+              logger.error("Problem inserting into test table: \n", err);
+              res.status(400).send('Problem inserting into table'); 
+            } else {
+              res.status(200).send(`added ${req.body.user2} to the table!`);
+            }
+          });
+        }
+      });
+    });
 }

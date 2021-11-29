@@ -1,7 +1,7 @@
 CREATE DATABASE db;
 USE db;
 CREATE TABLE users (
-	userID int(11) AUTO_INCREMENT PRIMARY KEY,
+	userID varchar(255),
 	username varchar(255),
 	userEmail varchar(255),
 	password varchar(255),
@@ -9,13 +9,13 @@ CREATE TABLE users (
 	);
 
 CREATE TABLE friends (
-	userID1 int(11),
-	userID2 int(11)
+	userID1 varchar(255),
+	userID2 varchar(255)
 	);
 
 
 CREATE TABLE battles (
-	battleID int(11) AUTO_INCREMENT PRIMARY KEY,
+	battleID varchar(255),
 	battleTopic varchar(255),
     battleDescription varchar(1024),
 	user1 varchar(255),
@@ -25,12 +25,11 @@ CREATE TABLE battles (
 	);
 
 CREATE TABLE messages (
-	messageID int(11) AUTO_INCREMENT PRIMARY KEY,
-	battleID int(11),
+	messageID varchar(255),
+	battleID varchar(255),
 	message varchar(1024),
 	senderName varchar(255),
 	senderID int(11),
 	timestamp datetime
 	);
 	
-

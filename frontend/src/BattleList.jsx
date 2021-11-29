@@ -8,8 +8,8 @@ export class BattleList extends React.Component {
     state = {
         battles: []
     }
-    joinBattle() {
-        console.log("joining battle");
+    joinBattle(battleID) {
+        this.repository.joinBattle(battleID, this.props.userID)
     }
     render() {
         return <div>

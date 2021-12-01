@@ -73,4 +73,15 @@ export class Repository {
                 })
         });
     }
+
+    addAccount(user){
+        return new Promise((resolve, reject) => {
+            axios.post(`${this.url}/postuser`, user, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        })
+    }
 }

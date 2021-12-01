@@ -3,8 +3,7 @@ import React from 'react';
 import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import { Repository
- } from './api';
+import { Repository } from './api';
 export class Login extends React.Component {
     repository = new Repository();
     state = {
@@ -13,9 +12,13 @@ export class Login extends React.Component {
         password: ''
     };
 
-    validateLogin(){
-        var userID = Date.now().toString(36) + Math.random().toString(36); //uniqueID generator
+    async validateLogin(){
+        var userID = ""//Date.now().toString(36) + Math.random().toString(36)""; //uniqueID generator
         this.props.onSetUser(userID);
+        await this.repository.login(this.state.name, this.state.password).then(x => {
+            console.log("get user by id", x)
+            userID = x.userID;
+        });
         return <Redirect to="/battlePage"></Redirect>
     }
     

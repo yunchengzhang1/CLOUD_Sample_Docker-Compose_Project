@@ -130,7 +130,7 @@ module.exports = function routes(app, logger) {
 
   // post username and password
   app.get('/login', function(req, res) {
-    //console.log(req.body.username);
+ 
    
     var username = req.param('username');
     var password = req.param('password');

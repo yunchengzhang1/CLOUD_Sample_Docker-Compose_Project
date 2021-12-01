@@ -15,16 +15,11 @@ export class BattlePage extends React.Component {
         battles: []
     };
 
-    addBattle(battle){
-        console.log("addBattle func");
-        this.setState(prevState => {
-            let battles = prevState.battles;
-            console.log(battles);
-            battles.push(battle);
-            
-            return{battles}
-        })
-        
+    async addBattle(battle){
+        await this.repository.addBattle(battle);
+        await this.repository.getBattles().then(x => {
+            console.log(x.data);
+            this.setState({battles: x.data})});
     }
 
     setActiveBattle(battleID) {
@@ -38,15 +33,20 @@ export class BattlePage extends React.Component {
         return this.state.battles.filter(battle => {
             return battle.battleID === battleID;
         })
-        
     }
     
     setUserID(userID){
         this.setState({currentUserID: userID});
         this.setState({loggedIn: true})
     }
+
     sendMessage(text) {
         this.repository.postMessage();
+    }
+    async updateBattles() {
+        await this.repository.getBattles().then(x => {
+            console.log(x.data);
+            this.setState({battles: x.data})});
     }
 
     handleChange = async (event) => {
@@ -65,7 +65,7 @@ export class BattlePage extends React.Component {
             <div className="sidebar">
                 <div>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
-                    <BattleList onChange={this.handleChange} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/> 
+                    <BattleList onUpdateBattles={() => this.updateBattles()} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/> 
                 </div>
             </div>
             <div className="battleLog">
@@ -78,7 +78,7 @@ export class BattlePage extends React.Component {
             </div>
         </div>
     }
-    componentDidMount() {
+    async componentDidMount() {
         console.log("setting state")
         this.repository.getBattles().then(x => {
             console.log(x.data);

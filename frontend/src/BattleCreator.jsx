@@ -9,7 +9,7 @@ export class BattleCreator extends React.Component {
         description: ""
     }
 
-    addBattle = (e) => {
+    addBattle = (e) => { 
         console.log("adding battle");
         e.preventDefault();
         let battle = new Battle()
@@ -17,7 +17,7 @@ export class BattleCreator extends React.Component {
         battle.battleTopic = this.state.title;
         battle.user1 = this.props.userID;
         battle.battleID = Date.now().toString(36) + Math.random().toString(36);
-        this.repository.addBattle(battle);
+        this.props.onBattleAdded(battle); 
         this.setState({title: ""});
         this.setState({description: ""});
     };

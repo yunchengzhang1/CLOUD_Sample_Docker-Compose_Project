@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
-import React, { useState, useEffect } from 'react';
 import { Repository } from './api';
+import React from 'react';
 import './styles/BattleList.css';
 
 export class BattleList extends React.Component {
@@ -10,28 +10,29 @@ export class BattleList extends React.Component {
     }
 
 
-    componentDidMount(){
-        console.log("componentDidMount, updating state");
-        // console.log(this.props.battles);
-        let cloneState = this.props.battles.slice();
-        // console.log(cloneState);
-        this.setState({
-            battles:cloneState
-        })
-    }
+    // componentDidMount(){
+    //     console.log("componentDidMount, updating state");
+    //     // console.log(this.props.battles);
+    //     let cloneState = this.props.battles.slice();
+    //     // console.log(cloneState);
+    //     this.setState({
+    //         battles:cloneState
+    //     })
+    // }
 
     joinBattle(battleID) {
         this.repository.joinBattle(battleID, this.props.userID);
     }
     refreshList = () =>{
-        console.log(this.props.battles);
-        // let curr_battles = this.repository.getBattles();
         
+        console.log("refreshlist", this.props.battles);
+        // let curr_battles = this.repository.getBattles();
+        this.props.onUpdateBattles();
         // console.log(curr_battles);
-
-        this.repository.getBattles().then(x => {
-            console.log(x.data);
-            this.setState({battles: x.data})});
+        this.setState({battles: this.props.battles})
+        // this.repository.getBattles().then(x => {
+        //     console.log(x.data);
+        //     this.setState({battles: x.data})});
 
         // this.setState({battles:curr_battles}, ()=>console.log(this.state.battles));
         // this.forceUpdate();
@@ -40,13 +41,13 @@ export class BattleList extends React.Component {
         console.log("render() method");
         console.log(this.state.battles);
         return <div>
-            {this.props.battles.length === 0 &&
+            {this.state.battles.length === 0 &&
                 <div>
                     No active battles
                 </div>
             }
             <div className="list-group ">
-                {this.state.battles.map(x => 
+                {this.props.battles.map(x => 
                     <div className="list-group-item" key={x.battleID}>
                         <div className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
                             <div className="card-body">

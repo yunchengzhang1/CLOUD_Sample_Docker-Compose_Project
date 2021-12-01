@@ -127,10 +127,15 @@ module.exports = function routes(app, logger) {
   });
 
 
+
   // post username and password
-  app.get('/login', (req, res) => {
+  app.get('/login', function(req, res) {
     //console.log(req.body.username);
-    console.log('hello' + req.body);
+   
+    var username = req.param('username');
+    var password = req.param('password');
+    console.log('hello ' + username);
+   
     // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection){
       if(err){
@@ -139,16 +144,14 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection'); 
       } else {
         // if there is no issue obtaining a connection, execute query and release connection
-        connection.query('SELECT `userID` FROM `db`.`users` WHERE `username` = \'' + req.body.username + '\' AND `password` = \'' + req.body.password + '\'', function (err, rows, fields) {
+        connection.query('SELECT `userID` FROM `db`.`users` WHERE `username`=? AND `password`=?', [username, password], function(error,results,fields){
           connection.release();
           if (err) {
             // if there is an error with the query, log the error
             logger.error("Problem getting from test table: \n", err);
             res.status(400).send('Problem getting from table'); 
           } else {
-            res.status(200).json({
-              "data": rows
-            });
+            res.end(JSON.stringify(results)); 
           }
         });
       }

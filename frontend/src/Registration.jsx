@@ -20,13 +20,15 @@ export class Registration extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+        let time = Date.now().toString(36);
+        let rando = Math.random().toString(36)
         const data={
             username: this.name,
             password: this.password,
-            userID: (Date.now().toString(36) + Math.random().toString(36))
+            userID: (this.name + '#' + time.substring(6,8) + rando.substring( 3,6))
         }
-        this.repository.addAccount(data);
         console.log(data);
+        // this.repository.addAccount(data);   
     }
 
     render() {

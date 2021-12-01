@@ -40,25 +40,25 @@ export class BattleList extends React.Component {
     render() {
         console.log("render() method");
         console.log(this.state.battles);
-        return <div>
+        return <div id="battle-list">
             {this.state.battles.length === 0 &&
-                <div>
+                <div id="no-active">
                     No active battles
                 </div>
             }
             <div className="list-group ">
                 {this.props.battles.map(x => 
                     <div className="list-group-item" key={x.battleID}>
-                        <div className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
+                        <div  className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
                             <div className="card-body">
-                                <h5 className="card-title">{x.battleTitle}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">{x.user1} vs {x.user2}</h6>
+                                <h5 id="card-title" className="card-title">{x.battleTitle}</h5>
+                                <h6 id="vs" className="card-subtitle mb-2 text-muted">{x.user1} vs {x.user2}</h6>
                                 {/* {this.repository.getUserById(x.user1).name} */}
                                 <p className="card-text">{x.battleDescription}</p>
                             </div>
                             {x.user2 === "undefined" && (
                                 <form>
-                                    <button type="button" onClick={() => this.joinBattle(x.battleID)}>Join Battle</button>
+                                    <button id="join-battle"type="button" onClick={() => this.joinBattle(x.battleID)}>Join Battle</button>
                                 </form>
                             )}
                         </div>

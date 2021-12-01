@@ -1,0 +1,12 @@
+textarea{
+    resize: none;
+}
+
+textarea:hover{
+    background-color: #ffc7c7;
+    border-color: #d42626;
+}
+
+#battle-creator{
+    
+}

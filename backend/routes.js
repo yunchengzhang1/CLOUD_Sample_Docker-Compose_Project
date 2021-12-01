@@ -112,7 +112,7 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection'); 
       } else {
         // if there is no issue obtaining a connection, execute query and release connection
-        connection.query('INSERT INTO `db`.`users` (`username`, `password`) VALUES(\'' + req.body.username + '\', \'' + req.body.password + '\')', function (err, rows, fields) {
+        connection.query('INSERT INTO `db`.`users` (`userID`, `username`, `password`) VALUES(\'' + req.body.userID + '\', \''+ req.body.username + '\', \'' + req.body.password + '\')', function (err, rows, fields) {
           connection.release();
           if (err) {
             // if there is an error with the query, log the error
@@ -120,6 +120,35 @@ module.exports = function routes(app, logger) {
             res.status(400).send('Problem inserting into table'); 
           } else {
             res.status(200).send(`added ${req.body.username} to the table!`);
+          }
+        });
+      }
+    });
+  });
+
+
+  // post username and password
+  app.get('/login', (req, res) => {
+    //console.log(req.body.username);
+    console.log('hello' + req.body);
+    // obtain a connection from our pool of connections
+    pool.getConnection(function (err, connection){
+      if(err){
+        // if there is an issue obtaining a connection, release the connection instance and log the error
+        logger.error('Problem obtaining MySQL connection',err)
+        res.status(400).send('Problem obtaining MySQL connection'); 
+      } else {
+        // if there is no issue obtaining a connection, execute query and release connection
+        connection.query('SELECT `userID` FROM `db`.`users` WHERE `username` = \'' + req.body.username + '\' AND `password` = \'' + req.body.password + '\'', function (err, rows, fields) {
+          connection.release();
+          if (err) {
+            // if there is an error with the query, log the error
+            logger.error("Problem getting from test table: \n", err);
+            res.status(400).send('Problem getting from table'); 
+          } else {
+            res.status(200).json({
+              "data": rows
+            });
           }
         });
       }
@@ -165,7 +194,7 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection'); 
       } else {
         // if there is no issue obtaining a connection, execute query and release connection
-        connection.query('INSERT INTO `db`.`messages` (`battleID`, `message`, `senderName`, `senderID`, `timestamp`) VALUES(\'' + req.body.battleID + '\', \''  + req.body.message + '\', \'' + req.body.senderName + '\', \'' + req.body.senderID + '\', \'' + req.body.timestamp + '\')', function (err, rows, fields) {
+        connection.query('INSERT INTO `db`.`messages` (`battleID`, `message`, `senderName`, `userID`, `timestamp`) VALUES(\'' + req.body.battleID + '\', \''  + req.body.message + '\', \'' + req.body.senderName + '\', \'' + req.body.userID + '\', \'' + req.body.timestamp + '\')', function (err, rows, fields) {
           connection.release();
           if (err) {
             // if there is an error with the query, log the error

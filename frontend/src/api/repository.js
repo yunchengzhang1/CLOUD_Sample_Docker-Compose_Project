@@ -45,7 +45,7 @@ export class Repository {
                 .catch(x => {
                     alert(x);
                     reject(x);
-                }) 
+                })  
         });
     }
 
@@ -98,6 +98,21 @@ export class Repository {
     getUserById(userID) {
         if(userID){
             this.config.userID = userID;
+        }
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/getuserbyid`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    login(username, password){
+        if(username && password){
+            this.config.username = username;
+            this.config.password = password;
         }
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/getuserbyid`, this.config)

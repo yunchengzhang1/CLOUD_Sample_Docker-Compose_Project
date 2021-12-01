@@ -5,6 +5,9 @@ import { BattleLog } from './BattleLog';
 import './styles/BattlePage.css'
 import { MessageBox } from './MessageBox';
 import { Repository } from './api';
+
+import { Redirect } from 'react-router-dom';
+
 export class BattlePage extends React.Component {
     repository = new Repository();
     state = {
@@ -30,7 +33,7 @@ export class BattlePage extends React.Component {
 
     searchBattleID(battleID){
         return this.state.battles.filter(battle => {
-            return battle.id === battleID;
+            return battle.battleID === battleID;
         })
     }
     
@@ -49,10 +52,14 @@ export class BattlePage extends React.Component {
     }
 
     render() {
+        if(!this.props.isAuthenticated){
+            console.log("authenticated");
+            return <Redirect to="/"></Redirect>
+        }
         return <div>
             <div className="sidebar">
                 <div>
-                    <BattleList onChange={this.handleChange} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
+                    <BattleList onChange={this.handleChange} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
                 </div>
             </div>

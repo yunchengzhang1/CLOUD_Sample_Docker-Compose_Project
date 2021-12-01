@@ -21,8 +21,8 @@ class App extends Component{
     return <Router>
       <Switch>
         <Route exact path="/" render={() => <Login onSetUser={id => this.setUser(id)} isAuthenticated={this.state.isAuthenticated}/>}/>
-        <Route exact path="/registration" component={Registration}/>
-        <Route exact path="/battlePage" render={()=> <BattlePage userID={this.state.userID}/>}/>
+        <Route exact path="/registration" render={() => <Registration onSetUser={id => this.setUser(id)} isAuthenticated={!this.state.isAuthenticated}/>}/>
+        <Route exact path="/battlePage" render={()=> <BattlePage userID={this.state.userID} isAuthenticated={this.state.isAuthenticated}/>}/>
       </Switch>
     </Router>
   }

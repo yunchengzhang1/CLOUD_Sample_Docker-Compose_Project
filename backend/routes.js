@@ -130,7 +130,7 @@ module.exports = function routes(app, logger) {
   // post username and password
   app.get('/login', (req, res) => {
     //console.log(req.body.username);
-    console.log('hello' + req.body);
+    console.log('hello' + req.query.username);
     // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection){
       if(err){

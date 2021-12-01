@@ -7,7 +7,7 @@ export const BattleLog = props => {
 
     useEffect(() => {
         console.log("getting messages");
-        //repository.getMessagesById(props.battleID)
+        repository.getMessagesById(props.battleID)
     }, []);
 
     if(!messages){

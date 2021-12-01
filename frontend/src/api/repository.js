@@ -45,7 +45,7 @@ export class Repository {
                 .catch(x => {
                     alert(x);
                     reject(x);
-                })
+                }) 
         });
     }
 

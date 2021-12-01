@@ -16,12 +16,15 @@ export class BattlePage extends React.Component {
     };
 
     addBattle(battle){
+        console.log("addBattle func");
         this.setState(prevState => {
             let battles = prevState.battles;
             console.log(battles);
             battles.push(battle);
+            
             return{battles}
         })
+        
     }
 
     setActiveBattle(battleID) {
@@ -35,6 +38,7 @@ export class BattlePage extends React.Component {
         return this.state.battles.filter(battle => {
             return battle.battleID === battleID;
         })
+        
     }
     
     setUserID(userID){
@@ -46,9 +50,10 @@ export class BattlePage extends React.Component {
     }
 
     handleChange = async (event) => {
-        this.setState({
+        await this.setState({
             battles: this.repository.getBattles()
         })
+        console.log("onchange triggered")
     }
 
     render() {
@@ -59,8 +64,8 @@ export class BattlePage extends React.Component {
         return <div>
             <div className="sidebar">
                 <div>
-                    <BattleList onChange={this.handleChange} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
+                    <BattleList onChange={this.handleChange} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/> 
                 </div>
             </div>
             <div className="battleLog">

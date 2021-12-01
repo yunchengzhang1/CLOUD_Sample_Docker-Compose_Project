@@ -3,8 +3,10 @@ import React from 'react';
 import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-
+import { Repository
+ } from './api';
 export class Login extends React.Component {
+    repository = new Repository();
     state = {
         name: '',
         email: '',
@@ -65,4 +67,8 @@ export class Login extends React.Component {
             </section>
         </div>
     }
+    componentDidMount() {
+        this.repository.getUsers().then(x => {
+        console.log(x);
+    })}
 }

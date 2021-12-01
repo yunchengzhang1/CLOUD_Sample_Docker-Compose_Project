@@ -21,8 +21,9 @@ export class Registration extends Component {
     handleSubmit = e => {
         e.preventDefault();
         const data={
-            name: this.name,
-            password: this.password
+            username: this.name,
+            password: this.password,
+            userID: (Date.now().toString(36) + Math.random().toString(36))
         }
         this.repository.addAccount(data);
         console.log(data);

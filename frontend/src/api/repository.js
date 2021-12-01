@@ -76,12 +76,36 @@ export class Repository {
 
     addAccount(user){
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/postuser`, user, this.config)
+            axios.post(`${this.url}/signup`, user, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);
                     reject(x);
                 })
         })
+    }
+    getUsers() {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/users`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+
+    getUserById(userID) {
+        if(userID){
+            this.config.userID = userID;
+        }
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/getuserbyid`, this.config)
+                .then(x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
     }
 }

@@ -242,7 +242,7 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection');
       } else {
         // if there is no issue obtaining a connection, execute query and release connection
-        connection.query('SELECT message FROM `db`.`messages` WHERE `battleID`=?', [battleID], function (err, results, fields) {
+        connection.query('SELECT * FROM `db`.`messages` WHERE `battleID`=?', [battleID], function (err, results, fields) {
           connection.release();
           if (err) {
             logger.error("Error while fetching values: \n", err);

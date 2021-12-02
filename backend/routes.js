@@ -233,7 +233,7 @@ module.exports = function routes(app, logger) {
   app.get('/getmessagesbyid', (req, res) => {
     //console.log(req.body.username);
     var battleID = req.param('battleID');
-    console.log(req.body);
+    console.log("BattleID: ", battleID);
     // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection) {
       if (err) {

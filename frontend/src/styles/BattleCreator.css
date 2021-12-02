@@ -1,5 +1,9 @@
 textarea{
+    width: 99%;
     resize: none;
+    height: 190px;
+    border: 2px solid rgba(51, 8, 8, 0.973);
+    border-radius: 10px;
 }
 
 textarea:hover{
@@ -9,4 +13,11 @@ textarea:hover{
 
 #battle-creator{
     
+    background-color:rgb(17, 17, 17)
+}
+
+#add-battle{
+    width: 100%;
+    color:#fdf6f4;
+    text-align: center;
 }

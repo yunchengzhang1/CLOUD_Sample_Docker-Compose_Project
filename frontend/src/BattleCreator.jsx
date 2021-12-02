@@ -27,7 +27,7 @@ export class BattleCreator extends React.Component {
     render() {
         return <>
             <div id="battle-creator" className="list-group">
-                <h2 className="list-group-item" >Add Battle</h2>
+                <h2 id="add-battle" className="list-group-item" >Add Battle</h2>
                 <form onSubmit={this.addBattle}>
                     <div className="form-group">
                         {/* <label htmlFor="inputTitle">Title</label> */}

@@ -1,10 +1,10 @@
 export class Message {
-    constructor(id, userID, battleID, text, senderName, date) {
-        this.id = id;
-        this.senderID = userID;
+    constructor(messageID, battleID, message, senderName, userID, date) {
+        this.messageID = messageID;
         this.battleID = battleID;
-        this.message = text;
+        this.message = message;
         this.senderName = senderName;
+        this.userID = userID;
         this.date = date;
     }
 }

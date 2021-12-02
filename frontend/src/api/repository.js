@@ -125,7 +125,7 @@ export class Repository {
     likeMessage(messageID, userID){
         let append = "/?messageID=" + messageID + "&userID=" + userID;
         return new Promise((resolve, reject) => {
-            axios.put(`${this.url}/likemessage`+append, this.config)
+            axios.post(`${this.url}/likemessage`+append, this.config)
                 .then(
                     x => resolve(x.data))
                 .catch(x => {
@@ -151,7 +151,7 @@ export class Repository {
     getBattleScore(battleID, userID){
         let append = "/?battleID=" + battleID + "&userID=" + userID;
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/unlikemessage`+append, this.config)
+            axios.get(`${this.url}/getbattlescore`+append, this.config)
                 .then(
                     x => resolve(x.data))
                 .catch(x => {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Battle } from "./models/Battle";
 import { Repository } from "./api/repository";
+import './styles/BattleCreator.css';
 
 export class BattleCreator extends React.Component {
     repository = new Repository();
@@ -25,16 +26,16 @@ export class BattleCreator extends React.Component {
 
     render() {
         return <>
-            <div className="list-group">
-                <h2 className="list-group-item" >Add Battle</h2>
+            <div id="battle-creator" className="list-group">
+                <h2 id="add-battle" className="list-group-item" >Add Battle</h2>
                 <form onSubmit={this.addBattle}>
                     <div className="form-group">
-                        <label htmlFor="inputTitle">Title</label>
-                        <input type="text" className="form-control mb-3" id="inputTitle" value={this.state.title} onChange={e => this.setState({title: e.target.value})}/>
+                        {/* <label htmlFor="inputTitle">Title</label> */}
+                        <input type="text" className="form-control mb-3" id="inputTitle" value={this.state.title} placeholder={"Title"} onChange={e => this.setState({title: e.target.value})}/>
                     </div>
                     <div className="form-group">
-                        <label className="form-label" htmlFor="inputDescription">Description</label>
-                        <textarea className="form-control" rows="3" id="inputDescription" value={this.state.description} onChange={e => this.setState({description: e.target.value})}/>
+                        {/* <label className="form-label" htmlFor="inputDescription">Description</label> */}
+                        <textarea id="description-box"className="form-control" rows="3" id="inputDescription" value={this.state.description} placeholder={"Description"} onChange={e => this.setState({description: e.target.value})}/>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>

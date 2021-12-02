@@ -43,14 +43,17 @@ export class MessageArea extends React.Component {
     }
 
     updateScore() {
+        console.log("updating Score");
         var score1 =0;
         var score2 =0;
+        var score =0;
         for(var i = 0; i < this.state.messages.length; i++){
             if(this.state.messages[i].userID === this.props.battle.user1){
-                //this.repository.getBattleScore(messages[i].messageID, this.props.battle.user1).then(x => {
-                    //score = x.data
-                    //score1 = score 1 + score
-                //})
+                this.repository.getBattleScore(this.state.messages[i].messageID, this.props.battle.user1).then(x => {
+                    var score = x.data;
+                    console.log("score", score)
+                    score1 = score1 + score
+                })
             }
             //this.repository.getBattleScore(messages[i].messageID, this. props)
         }

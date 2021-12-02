@@ -10,12 +10,13 @@ export class BattleMessage extends React.Component {
 
     handleLike() {
         this.setState({ likedByUser: !this.state.likedByUser })
-        console.log("handling like")
-        if (this.state.likedByUser) {
-           this.repository.likeMessage(this.props.message.messageID, this.props.userID)
+        if (!this.state.likedByUser) {
+            console.log("liking message")
+            this.repository.likeMessage(this.props.message.messageID, this.props.userID)
         }
         else {
-            //unlikeMessage()
+            console.log("unliking message")
+            this.repository.unlikeMessage(this.props.message.messageID, this.props.userID)
         }
         this.props.onUpdateScore();
     }

@@ -134,5 +134,31 @@ export class Repository {
                 })
         });
     }
+
+    unlikeMessage(messageID, userID){
+        let append = "/?messageID=" + messageID + "&userID=" + userID;
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/unlikemessage`+append, this.config)
+                .then(
+                    x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+    
+    getBattleScore(battleID, userID){
+        let append = "/?battleID=" + battleID + "&userID=" + userID;
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/unlikemessage`+append, this.config)
+                .then(
+                    x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
     
 }

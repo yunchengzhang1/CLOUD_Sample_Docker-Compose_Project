@@ -1,6 +1,7 @@
 import React from "react";
 import { Repository } from "./api";
 import { Message } from "./models/Message";
+import './styles/BattleLog.css';
 export class MessageBox extends React.Component {
     repository = new Repository();
     state = {
@@ -36,9 +37,9 @@ export class MessageBox extends React.Component {
 
     render() {
         return <div>
-            <h2>Send a Message!</h2>
+            <h2 id="battle-log-text">Send a Message!</h2>
             <form onSubmit={this.sendMessage}>
-                <label htmlFor="inputMessage">Message</label>
+                <label htmlFor="inputMessage" id="battle-log-text">Message</label>
                 <input type="text" className="form-control" id="inputMessage" value={this.state.text} onChange={this.handleChange}/>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

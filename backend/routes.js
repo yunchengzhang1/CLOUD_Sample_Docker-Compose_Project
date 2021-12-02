@@ -2,9 +2,10 @@ const pool = require('./db')
 
 module.exports = function routes(app, logger) {
   // GET /
-  app.get('/', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
+  app.get('/', (req, res, next) => {
     res.status(200).send('Go to 0.0.0.0:3000.');
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
   });
 
 
@@ -489,58 +490,89 @@ module.exports = function routes(app, logger) {
   });
 
 
-app.put('/likemessage', (req, res) => {
-  //console.log(req.body.username);
-  console.log('hello' + req.body);
-  // obtain a connection from our pool of connections
-  pool.getConnection(function (err, connection){
-    if(err){
-      // if there is an issue obtaining a connection, release the connection instance and log the error
-      logger.error('Problem obtaining MySQL connection',err)
-      res.status(400).send('Problem obtaining MySQL connection'); 
-    } else {
-      // if there is no issue obtaining a connection, execute query and release connection
-      if(req.body.messageID != req.body.userID) {
-        connection.query('UPDATE `db`.`messages` SET `numLikes` = CASE WHEN (SELECT COUNT(*) WHERE `messageID` = \'' + req.body.messageID + '\' AND `userID` = \'' + req.body.userID + '\') = 0 THEN (IFNULL(`numLikes` + 1, 0)) ELSE `numLikes` END WHERE `messageID` = \'' + req.body.messageID + '\'', function (err, rows, fields) {
+  app.post('/likemessage', (req, res) => {
+    //console.log(req.body.username);
+    console.log('hello' + req.body);
+    console.log('INSERT INTO `db`.`likes`(messageID, userID) SELECT  \'' + req.body.messageID + '\',  \'' + req.body.userID + '\' FROM DUAL WHERE NOT EXISTS `messageID` = \'' + req.body.messageID + '\' AND `userID` = \'' + req.body.userID + '\' LIMIT 1');
+    // obtain a connection from our pool of connections
+    pool.getConnection(function (err, connection){
+      if(err){
+        // if there is an issue obtaining a connection, release the connection instance and log the error
+        logger.error('Problem obtaining MySQL connection',err)
+        res.status(400).send('Problem obtaining MySQL connection'); 
+      } else {
+        // if there is no issue obtaining a connection, execute query and release connection
+        if(req.body.messageID != req.body.userID) {
+          connection.query('INSERT INTO `db`.`likes`(messageID, userID) SELECT  \'' + req.body.messageID + '\',  \'' + req.body.userID + '\' FROM DUAL WHERE NOT EXISTS (SELECT * FROM `likes` WHERE `messageID` = \'' + req.body.messageID + '\' AND `userID` = \'' + req.body.userID + '\' LIMIT 1)', function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              // if there is an error with the query, log the error
+              logger.error("Problem inserting into test table: \n", err);
+              res.status(400).send('Problem inserting into table'); 
+            } else {
+              res.status(200).send(`added ${req.body.messageID} to the table!`);
+            }
+          });
+        }
+      }
+    });
+  });
+
+  app.get('/getbattlescore', function (req, res) {
+
+
+    var battleID = req.param('messageID');
+    var userID = req.param('userID');
+    console.log(battleID, userID);
+  
+    // obtain a connection from our pool of connections
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        // if there is an issue obtaining a connection, release the connection instance and log the error
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      } else {
+        // if there is no issue obtaining a connection, execute query and release connection
+        connection.query('SELECT COUNT(*) FROM `db`.`messages` JOIN `likes` ON `messages`.`messageID` = `likes`.`messageID` WHERE `messages`.`battleID`=? AND `messages`.`userID`=?', [battleID, userID], function (error, results, fields) {
           connection.release();
           if (err) {
             // if there is an error with the query, log the error
-            logger.error("Problem inserting into test table: \n", err);
-            res.status(400).send('Problem inserting into table'); 
+            logger.error("Problem getting from test table: \n", err);
+            res.status(400).send('Problem getting from table');
           } else {
-            res.status(200).send(`added ${req.body.messageID} to the table!`);
+            res.end(JSON.stringify(results));
           }
         });
       }
-    }
+    });
   });
-}
-)
-
-app.get('/getbattlescore', function (req, res) {
 
 
-  var battleID = req.param('battleID');
-  var userID = req.param('userID');
-
-  // obtain a connection from our pool of connections
-  pool.getConnection(function (err, connection) {
-    if (err) {
-      // if there is an issue obtaining a connection, release the connection instance and log the error
-      logger.error('Problem obtaining MySQL connection', err)
-      res.status(400).send('Problem obtaining MySQL connection');
-    } else {
-      // if there is no issue obtaining a connection, execute query and release connection
-      connection.query('SELECT SUM(`numLikes) FROM `db`.`messages` WHERE `battleID`=? AND `userID`=?', [battleID, userID], function (error, results, fields) {
-        connection.release();
-        if (err) {
-          // if there is an error with the query, log the error
-          logger.error("Problem getting from test table: \n", err);
-          res.status(400).send('Problem getting from table');
-        } else {
-          res.end(JSON.stringify(results));
+  app.delete('/unlikemessage', (req, res) => {
+    //console.log(req.body.username);
+    console.log('hello' + req.body);
+      // obtain a connection from our pool of connections
+    pool.getConnection(function (err, connection){
+      if(err){
+        // if there is an issue obtaining a connection, release the connection instance and log the error
+        logger.error('Problem obtaining MySQL connection',err)
+        res.status(400).send('Problem obtaining MySQL connection'); 
+      } else {
+        // if there is no issue obtaining a connection, execute query and release connection
+        if(req.body.messageID != req.body.userID) {
+          connection.query('DELETE FROM `likes` WHERE `messageID` = \'' + req.body.messageID + '\' AND `userID` = \'' + req.body.userID + '\'', function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              // if there is an error with the query, log the error
+              logger.error("Problem inserting into test table: \n", err);
+              res.status(400).send('Problem inserting into table'); 
+            } else {
+              res.status(200).send(`added ${req.body.messageID} to the table!`);
+            }
+          });
         }
-      });
-    }
+      }
+    });
   });
-});}
+
+}

@@ -12,20 +12,24 @@ export class Login extends React.Component {
         password: ''
     };
 
-    async validateLogin(){
-        var userID = ""//Date.now().toString(36) + Math.random().toString(36)""; //uniqueID generator
-        this.props.onSetUser(userID);
+    async validateLogin(e){
+        e.preventDefault();
+        var userID = "unset" 
+        // const response = await this.repository.login(this.state.name, this.state.password);
+        // const json = await response.json();
+        // console.log("json" ,json);
         await this.repository.login(this.state.name, this.state.password).then(x => {
-            console.log("get user by id", x)
-            userID = x.userID;
+            userID = x;
+            console.log("userID", userID);
         });
+        
+        this.props.onSetUser(userID);
         return <Redirect to="/battlePage"></Redirect>
     }
     
     render (){
         const isAuthenticated = this.props.isAuthenticated;
         if (isAuthenticated){
-            console.log("authenticated");
             return <Redirect to="/battlePage"></Redirect>
         }
         return <div>
@@ -61,7 +65,7 @@ export class Login extends React.Component {
                             onChange={ event => this.setState({ password: event.target.value }) }
                             className="form-control" />
                     </div>
-                    <button onClick={e => this.validateLogin()}>
+                    <button onClick={(e) => this.validateLogin()}>
                         Login
                     </button>
                 </form>

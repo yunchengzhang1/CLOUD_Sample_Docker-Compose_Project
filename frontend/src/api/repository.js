@@ -60,12 +60,10 @@ export class Repository {
         })
     }
     
-    getMessagesById(params) {
-        if(params){
-            this.config.params = params;
-        }
+    getMessagesById(battleID) {
+        let append = "/battleID=" + battleID;
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/getmessagesbyid`, this.config)
+            axios.get(`${this.url}/getmessagesbyid` + append, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);
@@ -96,11 +94,9 @@ export class Repository {
     }
 
     getUserById(userID) {
-        if(userID){
-            this.config.userID = userID;
-        }
+        let append = "/?userID=" + userID;
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/getuserbyid`, this.config)
+            axios.get(`${this.url}/getuserbyid` + append, this.config)
                 .then(x => resolve(x.data))
                 .catch(x => {
                     alert(x);
@@ -113,7 +109,7 @@ export class Repository {
         let append = "/?username=" + username + "&password=" + password;
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/login` + append, this.config)
-                .then(x => resolve(x.data))
+                .then(x => resolve(x.data[0].userID))
                 .catch(x => {
                     alert(x);
                     reject(x);

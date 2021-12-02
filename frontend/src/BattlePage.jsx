@@ -59,7 +59,7 @@ export class BattlePage extends React.Component {
     render() {
         if(!this.props.isAuthenticated){
             console.log("authenticated");
-            return <Redirect to="/"></Redirect>
+            //return <Redirect to="/"></Redirect>
         }
         return <div>
             <div className="sidebar">

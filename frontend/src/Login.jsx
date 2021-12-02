@@ -1,4 +1,5 @@
 import './styles/Login.css';
+import loginPic from './styles/images/login.png';
 import React from 'react';
 import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
@@ -41,7 +42,7 @@ export class Login extends React.Component {
             <section id="LoginPage">
                 {/* a box extending the width of the screen with margins up and down to show the background picture */}
                 {/* have a default login image of a person or something here */}
-                <img src={"https://via.placeholder.com/150"} alt="Login Person"/>
+                <img src={loginPic} alt="Login Person"/>
                 {/* login title*/}
                 <h1>FLAME WAR LOGIN</h1>
                 {/* inside the box, have:

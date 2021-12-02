@@ -1,5 +1,7 @@
-@media (min-width: 1600px) {
-
+@media (max-width: 1000px) {
+    .battleLog {
+        width: 100vw;
+    }
 }
 
 .sidebar {
@@ -13,6 +15,16 @@
     bottom: 10rem;
     position: fixed;
     overflow-y: scroll;
+    padding: 5rem 1.5rem 3rem 1.5rem;
+}
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 90vw;
+        margin-top: 60vh;
+        padding-top: .1rem;
+        padding-bottom: 2rem;
+        height: 40%;
+    }
 }
 
 .battleLog {
@@ -22,6 +34,15 @@
     color: white;
     padding: .1rem;
     margin: 1rem 2.5rem;
+}
+@media (max-width: 1000px) {
+    .battleLog {
+        width: 100vw;
+        padding-top: 2rem;
+        position: relative;
+        margin: 0;
+        padding-top: .6rem;
+    }
 }
 
 .battle-page{
@@ -34,11 +55,21 @@
     width: 100%;
     overflow: hidden;
 }
+@media (max-width: 1000px) {
+    .topnav {
+        height: 3rem;
+    }
+}
 .topnav h1 {
     color: white;
     margin: 0;
     padding:1rem 2rem;
     float: left;
+}
+@media (max-width: 1000px) {
+    .topnav h1 {
+        padding: .2rem 1rem;
+    }
 }
 .topnav img {
     float: right;
@@ -49,9 +80,6 @@
     color: white;
     font-size: medium;
     padding: 1rem .2rem;
-}
-.sidebar {
-    padding: 5rem 1.5rem 3rem 1.5rem;
 }
 ::-webkit-scrollbar {
     width: .5rem;

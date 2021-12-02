@@ -20,9 +20,6 @@ h2 {
     margin: 1.2rem 2rem;
     border-radius: 28px;
 }
-/*TODO: each message is a .log*/
-/*TODO: the showing messages is a paragraph*/
-/*TODO: check user, then float text to left or right*/
 .log {
     background-color: #121212;
     color: white;
@@ -55,4 +52,20 @@ h2 {
     height: 4em;
     float:left;
     font-size: 1em;
+}
+@media (max-width: 1000px) {
+    .message {
+        padding: 0 2rem;
+        margin-top: 1.2rem;
+    }
+}
+.list-messages {
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+@media (max-width: 1000px) {
+    .list-messages {
+        height: 30vh;
+        overflow-y: scroll;
+    }
 }

@@ -121,4 +121,18 @@ export class Repository {
                 })
         });
     }
+
+    likeMessage(messageID, userID){
+        let append = "/?messageID=" + messageID + "&userID=" + userID;
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/likemessage`+append, this.config)
+                .then(
+                    x => resolve(x.data))
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
+        });
+    }
+    
 }

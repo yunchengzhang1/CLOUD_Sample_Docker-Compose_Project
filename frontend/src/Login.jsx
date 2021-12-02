@@ -15,10 +15,10 @@ export class Login extends React.Component {
     async validateLogin(e){
         e.preventDefault();
         var userID = "unset" 
-        // const response = await this.repository.login(this.state.name, this.state.password);
-        // const json = await response.json();
-        // console.log("json" ,json);
-        await this.repository.login(this.state.name, this.state.password).then(x => {
+         // const response = await this.repository.login(this.state.name, this.state.password);
+         // const json = await response.json();
+         // console.log("json" ,json);
+        this.repository.login(this.state.name, this.state.password).then(x => {
             userID = x;
             console.log("userID", userID);
         });
@@ -65,7 +65,7 @@ export class Login extends React.Component {
                             onChange={ event => this.setState({ password: event.target.value }) }
                             className="form-control" />
                     </div>
-                    <button onClick={(e) => this.validateLogin()}>
+                    <button onClick={(e) => this.validateLogin(e)}>
                         Login
                     </button>
                 </form>

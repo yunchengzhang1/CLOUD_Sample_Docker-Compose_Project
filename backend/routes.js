@@ -465,3 +465,30 @@ app.delete('/deletefriendbyid', (req, res) => {
     }
   });
 });
+
+app.put('/likemessage', (req, res) => {
+  //console.log(req.body.username);
+  console.log('hello' + req.body);
+  // obtain a connection from our pool of connections
+  pool.getConnection(function (err, connection){
+    if(err){
+      // if there is an issue obtaining a connection, release the connection instance and log the error
+      logger.error('Problem obtaining MySQL connection',err)
+      res.status(400).send('Problem obtaining MySQL connection'); 
+    } else {
+      // if there is no issue obtaining a connection, execute query and release connection
+      if(req.body.messageID != req.body.userID) {
+        connection.query('UPDATE `db`.`messages` SET `numLikes` = CASE WHEN (SELECT COUNT(*) WHERE `messageID` = \'' + req.body.messageID + '\' AND `userID` = \'' + req.body.userID + '\') = 0 THEN (IFNULL(`numLikes` + 1, 0)) ELSE `numLikes` END WHERE `messageID` = \'' + req.body.messageID + '\'', function (err, rows, fields) {
+          connection.release();
+          if (err) {
+            // if there is an error with the query, log the error
+            logger.error("Problem inserting into test table: \n", err);
+            res.status(400).send('Problem inserting into table'); 
+          } else {
+            res.status(200).send(`added ${req.body.messageID} to the table!`);
+          }
+        });
+      }
+    }
+  });
+});

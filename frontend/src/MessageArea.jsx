@@ -25,7 +25,7 @@ export class MessageArea extends React.Component {
                     console.log("messagesbyID returns", x)
                     this.setState({ messages: x });
                 }
-            )
+            ).catch();
 
     }
 
@@ -36,22 +36,22 @@ export class MessageArea extends React.Component {
                     this.setState({ messages: x });
                     console.log("messagesbyID returns", x)
                 }
-            )
+            ).catch();
     }
 
     render() {
         console.log(this.props.battle.user1)
         console.log(this.props.userID)
-        if (this.props.battle.user1 === this.props.userID) {
+        if (this.props.battle.user1 === this.props.userID || this.props.battle.user2 === this.props.userID) {
             console.log("got here");
             return <>
-                <div id="rhs">
+                <div>
                     <BattleLog userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />
                 </div>
                 <MessageBox activeBattleID={this.props.battle.battleID} userID={this.props.userID} onMessageSent={text => this.sendMessage(text)} />
             </>
         }
-        return <div id="lhs">
+        return <div>
             <BattleLog userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />
         </div>
     }

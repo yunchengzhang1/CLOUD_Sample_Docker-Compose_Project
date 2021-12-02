@@ -2,6 +2,7 @@
 import { Repository } from './api';
 import React from 'react';
 import './styles/BattleList.css';
+import { BattleCard } from './BattleCard';
 
 export class BattleList extends React.Component {
     repository = new Repository();
@@ -49,11 +50,12 @@ export class BattleList extends React.Component {
             <div className="list-group ">
                 {this.props.battles.map(x => 
                     <div className="list-group-item" key={x.battleID}>
-                        <div  className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
+                        <BattleCard battle={x} onBattleSelected={this.props.onBattleSelected}></BattleCard>
+                        {/* <div  className="card" onClick={e => this.props.onBattleSelected(x.battleID)}>
                             <div className="card-body">
                                 <h5 id="card-title" className="card-title">{x.battleTitle}</h5>
-                                <h6 id="vs" className="card-subtitle mb-2 text-muted">{x.user1} vs {x.user2}</h6>
-                                {/* {this.repository.getUserById(x.user1).name} */}
+                                <h6 id="vs" className="card-subtitle mb-2 text-muted">{() => this.repository.getUserById(x.user1)} vs {x.user2}</h6>
+
                                 <p className="card-text">{x.battleDescription}</p>
                             </div>
                             {x.user2 === "undefined" && (
@@ -61,7 +63,7 @@ export class BattleList extends React.Component {
                                     <button id="join-battle"type="button" onClick={() => this.joinBattle(x.battleID)}>Join Battle</button>
                                 </form>
                             )}
-                        </div>
+                        </div> */}
                     </div>
                 )}
                 <button type="button" onClick={() => this.refreshList()}>Refresh List</button>

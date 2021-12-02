@@ -60,7 +60,14 @@ export class BattleLog extends React.Component{
                 this.state.messages.map(x => 
                     <div className="message-card">
                         <div className="card text-white">
-                            <h4 id="card-title">{x.message}</h4>
+                            {/* {x.message.senderID === this.state.userID1 &&
+                                <h4 id="user1" className="card-title">{x.message}</h4>
+                            }
+                            {x.message.senderID === this.state.userID2 &&
+                                <h4 id="user2" className="card-title">{x.message}</h4>
+                            } */}
+                            <h4 id="user2" className="card-title">{x.message}</h4>
+                            
                         </div>
                     </div>
                 )

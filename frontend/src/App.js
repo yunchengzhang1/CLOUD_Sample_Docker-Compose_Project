@@ -15,6 +15,7 @@ class App extends Component{
   setUser(id){
     this.setState({isAuthenticated: true});
     this.setState({userID: id});
+    console.log("authenticated with ", id);
   }
 
   render(){

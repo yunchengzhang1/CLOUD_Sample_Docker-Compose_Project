@@ -20,7 +20,10 @@ export class BattlePage extends React.Component {
         await this.repository.getBattles().then(x => {
             console.log(x.data);
             this.setState({battles: x.data})});
+        
     }
+
+
 
     setActiveBattle(battleID) {
         console.log("Selected battleID", battleID);
@@ -33,13 +36,13 @@ export class BattlePage extends React.Component {
         return this.state.battles.filter(battle => {
             return battle.battleID === battleID;
         })
+        
     }
     
     setUserID(userID){
         this.setState({currentUserID: userID});
         this.setState({loggedIn: true})
     }
-
     sendMessage(text) {
         this.repository.postMessage();
     }
@@ -48,7 +51,6 @@ export class BattlePage extends React.Component {
             console.log(x.data);
             this.setState({battles: x.data})});
     }
-
     handleChange = async (event) => {
         await this.setState({
             battles: this.repository.getBattles()
@@ -61,7 +63,7 @@ export class BattlePage extends React.Component {
             console.log("authenticated");
             return <Redirect to="/"></Redirect>
         }
-        return <div>
+        return <div id="battle-page">
             <div className="sidebar">
                 <div>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>

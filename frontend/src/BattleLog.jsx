@@ -41,7 +41,7 @@ export class BattleLog extends React.Component {
             return <div id="battle-log-text">No Messages</div>
         }
         console.log("rendering", this.props.messages)
-        return <div>
+        return <div className="list-messages">
 
             <h2 id="battle-log-text" >{this.props.battle.battleTopic} Battle Log</h2>
 

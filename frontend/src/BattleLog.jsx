@@ -8,56 +8,23 @@ export class BattleLog extends React.Component{
     repository = new Repository();
     // [messages, setMessages] = useState(undefined);
     state = {
-        messages:[],
         userID1: "",
         userID2: ""
     }
-
-    componentDidUpdate(prevProps) {
-        
-        if (!equal (this.props.battleID, prevProps.battleID)){
-            this.updateMessages();
-            
-        }
-    }
-
-    async componentDidMount(){
-            await this.repository.getMessagesById(this.props.battleID)
-            .then(
-                x =>{
-                    console.log("messagesbyID returns", x)
-                    this.setState({messages: x});
-                }
-            )
-
-    }
-
-    async updateMessages(){
-        console.log("update messages");
-
-        await this.repository.getMessagesById(this.props.battleID)
-            .then(
-                x =>{
-                    this.setState({messages: x});
-                    console.log("messagesbyID returns", x)
-                }
-            )
-        console.log("before Render");
-    }
     
     render(){
-        if(this.props.battleID === undefined){
+        if(this.props.battle.battleID === undefined){
             return <div id="battle-log-text">No Battle Selected</div>
         }
-        if(this.state.messages === undefined){
+        if(this.props.messages === undefined){
             return <div id="battle-log-text">No Messages</div>
         }
-        console.log("rendering", this.state.messages)
+        console.log("rendering", this.props.messages)
         return <div>
-        <h2 id="battle-log-text" >Battle Log</h2>
+        <h2 id="battle-log-text" >{this.props.battle.battleTopic} Battle Log</h2>
         <div className="list-group">
             {
-                this.state.messages.map(x => 
+                this.props.messages.map(x => 
                     <div className="message-card">
                         <div className="card text-white">
                             {/* {x.message.senderID === this.state.userID1 &&

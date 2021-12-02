@@ -7,6 +7,7 @@ import { MessageBox } from './MessageBox';
 import { Repository } from './api';
 
 import { Redirect } from 'react-router-dom';
+import { MessageArea } from './MessageArea';
 
 export class BattlePage extends React.Component {
     repository = new Repository();
@@ -56,6 +57,10 @@ export class BattlePage extends React.Component {
         console.log("onchange triggered")
     }
 
+    updateBattleLog(){
+        
+    }
+
     render() {
         if(!this.props.isAuthenticated){
             console.log("authenticated");
@@ -76,10 +81,11 @@ export class BattlePage extends React.Component {
             </div>
             <div className="battleLog">
                 <div>
-                    <BattleLog battleID={this.state.activeBattle.battleID} />
+                    <MessageArea battle={this.state.activeBattle} userID={this.props.userID} ></MessageArea>
+                    {/* <BattleLog battle={this.state.activeBattle} />
                     {this.state.activeBattle.userID1 === this.props.userId && (
-                        <MessageBox activeBattleID={this.state.activeBattle.battleID} userID={this.state.currentUserID} onMessageSent={text => this.sendMessage(text)}/>
-                    )}
+                        <MessageBox activeBattleID={this.state.activeBattle.battleID} userID={this.props.userID} onMessageSent={text => this.sendMessage(text)}/>
+                    )} */}
                 </div>
             </div>
         </div>

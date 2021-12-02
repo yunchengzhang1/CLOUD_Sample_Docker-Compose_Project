@@ -1,6 +1,5 @@
 import React from "react";
 import { Repository } from "./api";
-import { Message } from "./models/Message";
 import './styles/BattleLog.css';
 export class MessageBox extends React.Component {
     repository = new Repository();
@@ -26,14 +25,16 @@ export class MessageBox extends React.Component {
         console.log(userName);
         //use real message object here
         const message={
+            messageID: (Date.now().toString(36) + Math.random().toString(36)),
             battleID: this.props.activeBattleID,
             message: this.state.text,
             senderName: userName,
-            senderID: userID,
+            userID: userID,
             timestamp: Date.now()
         }
         this.repository.postMessage(message);
         console.log("sent ", message);
+        this.setState({text: ""});
     }
 
     render() {

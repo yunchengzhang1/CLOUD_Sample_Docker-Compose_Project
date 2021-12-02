@@ -58,7 +58,7 @@ export class BattleLog extends React.Component{
         <div className="list-group">
             {
                 this.state.messages.map(x => 
-                    <div className="list-group-item">
+                    <div className="message-card">
                         <div className="card text-white">
                             <h4 id="card-title">{x.message}</h4>
                         </div>

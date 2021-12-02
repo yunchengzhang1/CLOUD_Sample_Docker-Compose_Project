@@ -23,3 +23,7 @@ h2 {
     padding: 1.5rem;
     border-radius: 20px;
 }
+.message-card {
+    background-color: #171717;
+    color: white;
+}

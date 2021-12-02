@@ -15,6 +15,9 @@
 .card-body {
     padding: 1rem;
 }
+.card-body:hover {
+    background-color: #260000;
+}
 .list-group-item {
     color: white;
     padding: .5rem 1rem;

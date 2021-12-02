@@ -514,7 +514,7 @@ app.put('/likemessage', (req, res) => {
     }
   });
 }
-)}
+)
 
 app.get('/getbattlescore', function (req, res) {
 
@@ -542,4 +542,4 @@ app.get('/getbattlescore', function (req, res) {
       });
     }
   });
-});
+});}

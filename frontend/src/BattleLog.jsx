@@ -33,6 +33,10 @@ export class BattleLog extends React.Component {
 
     }
 
+    onUpdateScore(){
+        this.props.onUpdateScore();
+    }
+
     render() {
         if (this.props.battle.battleID === undefined) {
             return <div id="battle-log-text">No Battle Selected</div>
@@ -48,7 +52,7 @@ export class BattleLog extends React.Component {
             <div className="list-group">
                 {
                     this.props.messages.map(x =>
-                        <BattleMessage username1={this.state.username1} username2={this.state.username2} battle={this.props.battle} message={x}></BattleMessage>
+                        <BattleMessage onUpdateScore={() => this.onUpdateScore()} username1={this.state.username1} username2={this.state.username2} battle={this.props.battle} message={x} userID={this.props.userID}></BattleMessage>
                         // <div className="message-card">
                         //     <div className="card text-white">
                         //         {this.props.battle.user1 === x.userID &&

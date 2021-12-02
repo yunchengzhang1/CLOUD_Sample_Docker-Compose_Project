@@ -4,10 +4,13 @@ import './styles/MessageArea.css';
 import { Repository } from "./api";
 import { BattleLog } from './BattleLog';
 import { MessageBox } from './MessageBox';
+import { ScoreBoard } from "./ScoreBoard";
 export class MessageArea extends React.Component {
     repository = new Repository();
     state = {
-        messages: []
+        messages: [],
+        user1Score: 0,
+        user2Score: 0,
     };
 
     componentDidUpdate(prevProps) {
@@ -39,6 +42,21 @@ export class MessageArea extends React.Component {
             ).catch();
     }
 
+    updateScore() {
+        var score1 =0;
+        var score2 =0;
+        for(var i = 0; i < this.state.messages.length; i++){
+            if(this.state.messages[i].userID === this.props.battle.user1){
+                //this.repository.getBattleScore(messages[i].messageID, this.props.battle.user1).then(x => {
+                    //score = x.data
+                    //score1 = score 1 + score
+                //})
+            }
+            //this.repository.getBattleScore(messages[i].messageID, this. props)
+        }
+       //this.repository.getBattleScore()
+    }
+
     render() {
         console.log(this.props.battle.user1)
         console.log(this.props.userID)
@@ -46,9 +64,10 @@ export class MessageArea extends React.Component {
             console.log("got here");
             return <div>
                 <div>
-                    <BattleLog userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />
+                    <BattleLog onUpdateScore={() => this.updateScore()} userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />
                 </div>
                 <MessageBox activeBattleID={this.props.battle.battleID} userID={this.props.userID} onMessageSent={text => this.sendMessage(text)} />
+                <ScoreBoard user1Score={this.state.user1Score} user2Score={this.state.user2Score}></ScoreBoard>
             </div>
         }
         return <div>

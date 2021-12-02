@@ -14,8 +14,8 @@ export class Login extends React.Component {
 
     async validateLogin(){
         var userID = "unset" 
-        await this.repository.login(this.state.name, this.state.password).then(x => {
-            console.log(x);
+
+        this.repository.login(this.state.name, this.state.password).then(x => {
             userID = x;
         });
         console.log("userID", userID);
@@ -61,7 +61,7 @@ export class Login extends React.Component {
                             onChange={ event => this.setState({ password: event.target.value }) }
                             className="form-control" />
                     </div>
-                    <button onClick={() => this.validateLogin()}>
+                    <button onClick={(e) => this.validateLogin(e)}>
                         Login
                     </button>
                 </form>

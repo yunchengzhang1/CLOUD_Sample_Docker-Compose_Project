@@ -1,15 +1,51 @@
+@media (max-width: 380px) {
+  .sidebar {
+    width: 30%;
+    padding-left: 0;
+  }
+  .battleLog {
+    margin: 0 0 0 5rem !important;
+  }
+}
+html {
+  background-color: #202020;
+  min-height: 100%;
+}
+.topnav {
+  background-color: darkred;
+  height: 4.5rem;
+  width: 100%;
+  overflow: hidden;
+}
+.topnav h1 {
+  color: white;
+  margin: 0;
+  padding:1rem 2rem;
+  float: left;
+}
+.topnav img {
+  float: right;
+  padding: .5rem 1rem;
+}
+.topnav h2 {
+  float: right;
+  color: white;
+  font-size: medium;
+  padding: 1rem .2rem;
+}
 .sidebar {
-    width: 33%;
-    float: left;
-    position:relative;
+  background-color: black;
+  float: left;
+  min-height: 100vh;
+  overflow: hidden;
+  color: white;
+  padding: .8rem 1.6rem;
+  margin: 0 1rem 0 0;
 }
-
+.sidebar div {
+  background-color: #121212;
+}
 .battleLog {
-    width: 66%;
-    float: right;
-    position:relative;
-}
-
-#battle-page{
-    background-color:rgb(36, 36, 36)
+  padding: 3rem;
+  margin: 0 0 0 18rem;
 }

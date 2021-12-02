@@ -1,4 +1,25 @@
-#battle-log-text{
-    color:#fdf6f4;
-    text-align: center;
+@media (max-width: 380px) {
+  h2 {
+    font-size: medium;
+  }
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  font-size: xx-large;
+}
+.battleLog p {
+  margin: 2rem 7rem;
+  color: white;
+}
+/*TODO: each message is a .log*/
+/*TODO: the showing messages is a paragraph*/
+/*TODO: check user, then float text to left or right*/
+.log {
+  background-color: #121212;
+  color: white;
+  margin: 1rem 2.5rem;
+  padding: 1.5rem;
+  border-radius: 20px;
 }

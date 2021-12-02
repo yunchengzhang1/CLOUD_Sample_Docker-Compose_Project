@@ -3,46 +3,78 @@ import { Repository } from "./api";
 import './styles/BattleLog.css';
 import axios from 'axios';
 import equal from 'fast-deep-equal'
+import { BattleMessage } from "./BattleMessage";
 
-export class BattleLog extends React.Component{
+export class BattleLog extends React.Component {
     repository = new Repository();
     // [messages, setMessages] = useState(undefined);
     state = {
-        userID1: "",
-        userID2: ""
+        username1: "undefined",
+        username2: "undefined"
     }
-    
-    render(){
-        if(this.props.battle.battleID === undefined){
+    async componentDidMount() {
+        var url = "http://localhost:8000"
+        let append1 = "/?userID=" + this.props.battle.user1;
+        let append2 = "/?userID=" + this.props.battle.user2;
+        await axios.get(`${url}/getuserbyid` + append1, this.config)
+            .then(x => {
+                console.log("getuserbyid", x.data);
+                if (x.data[0]) {
+                    this.setState({ username1: x.data[0].username })
+                }
+            }).catch();
+        await axios.get(`${url}/getuserbyid` + append2, this.config)
+            .then(x => {
+                console.log("getuserbyid", x.data);
+                if (x.data[0]) {
+                    this.setState({ username2: x.data[0].username })
+                }
+            }).catch();
+
+    }
+
+    render() {
+        if (this.props.battle.battleID === undefined) {
             return <div id="battle-log-text">No Battle Selected</div>
         }
-        if(this.props.messages === undefined){
+        if (this.props.messages === undefined) {
             return <div id="battle-log-text">No Messages</div>
         }
         console.log("rendering", this.props.messages)
         return <div>
 
-        <h2 id="battle-log-text" >{this.props.battle.battleTopic} Battle Log</h2>
+            <h2 id="battle-log-text" >{this.props.battle.battleTopic} Battle Log</h2>
 
-        <div className="list-group">
-            {
-                this.props.messages.map(x => 
-                    <div className="message-card">
-                        <div className="card text-white">
-                            {/* {x.message.senderID === this.state.userID1 &&
-                                <h4 id="user1" className="card-title">{x.message}</h4>
-                            }
-                            {x.message.senderID === this.state.userID2 &&
-                                <h4 id="user2" className="card-title">{x.message}</h4>
-                            } */}
-                            <h4 className="card-title">{x.message}</h4>
-                            
-                        </div>
-                    </div>
-                )
-            }
+            <div className="list-group">
+                {
+                    this.props.messages.map(x =>
+                        <BattleMessage username1={this.state.username1} username2={this.state.username2} battle={this.props.battle} message={x}></BattleMessage>
+                        // <div className="message-card">
+                        //     <div className="card text-white">
+                        //         {this.props.battle.user1 === x.userID &&
+                        //         <div>
+                        //             <button onClick={() => this.handleLike()} className="like-button">{heart}</button>
+                        //             <div id="user1" >
+                        //                 <h5 >{this.state.username1}</h5>
+                        //                 <h4 className="card-title">{x.message}</h4>
+                        //             </div>
+                        //         </div> 
+                        //         }
+                        //         {this.props.battle.user2 === x.userID &&
+                        //         <div>
+                        //             <button onClick={() => this.handleLike()} className="like-button">{heart}</button>
+                        //             <div id="user2" >
+                        //                 <h5 >{this.state.username2}</h5>
+                        //                 <h4 className="card-title">{x.message}</h4>
+                        //             </div>
+                        //         </div> 
+                        //         }
+                        //     </div>
+                        // </div>
+                    )
+                }
+            </div>
         </div>
-    </div>
     }
-    
+
 };

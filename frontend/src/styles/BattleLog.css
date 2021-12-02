@@ -37,16 +37,24 @@ h2 {
     color: white;
     padding: 1rem 2rem;
     margin: 1rem 2rem;
-    border-radius: 32px;
+    border-radius: 2rem;
 }
 
 #user1{
     right: 0;
-    text-align: right;
+    text-align: left;
     /* width:50% */
 }
 
 #user2{ 
-    text-align: left;
+    text-align: right;
     /* width:50% */
+}
+
+.like-button{
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    float:left;
+    font-size: 1em;
 }

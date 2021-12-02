@@ -94,12 +94,11 @@ export class Repository {
     }
 
     getUserById(userID) {
-        if (userID) {
-            this.config.userID = userID;
-        }
+        let append = "/?userID=" + userID;
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/getuserbyid`, this.config)
-                .then(x => resolve(x.data))
+            axios.get(`${this.url}/getuserbyid` + append, this.config)
+                .then(x => {
+                    resolve(x.data)})
                 .catch(x => {
                     alert(x);
                     reject(x);

@@ -15,15 +15,13 @@ export class BattlePage extends React.Component {
         battles: []
     };
 
-    async addBattle(battle){
+    async addBattle(battle) {
         await this.repository.addBattle(battle);
         await this.repository.getBattles().then(x => {
             console.log(x.data);
-            this.setState({battles: x.data})});
-
+            this.setState({battles: x.data})
+        });
     }
-
-
 
     setActiveBattle(battleID) {
         console.log("Selected battleID", battleID);
@@ -44,7 +42,7 @@ export class BattlePage extends React.Component {
         this.setState({loggedIn: true})
     }
     sendMessage(text) {
-        this.repository.postMessage();
+        this.repository.postMessage(text);
     }
     async updateBattles() {
         await this.repository.getBattles().then(x => {
@@ -61,9 +59,15 @@ export class BattlePage extends React.Component {
     render() {
         if(!this.props.isAuthenticated){
             console.log("authenticated");
-            //return <Redirect to="/"></Redirect>
+            return <Redirect to="/"></Redirect>
         }
         return <div id="battle-page">
+            <div className="topnav">
+                {/*<img class = "navLogo" src="imageurl" alt="logo for top navbar"/>*/}
+                <h1>*Flame War*</h1>
+                {/*<img className="loginPic" src="https://via.placeholder.com/55" alt="login pic"/>*/}
+                {/*<h2>{this.props.username}</h2>*/}
+            </div>
             <div className="sidebar">
                 <div>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>

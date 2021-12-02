@@ -25,8 +25,7 @@ export class BattleCreator extends React.Component {
 
 
     render() {
-        return <>
-            <div id="battle-creator" className="list-group">
+        return <div id="battle-creator" className="list-group-item">
                 <h2 id="add-battle" className="list-group-item" >Add Battle</h2>
                 <form onSubmit={this.addBattle}>
                     <div className="form-group">
@@ -40,6 +39,5 @@ export class BattleCreator extends React.Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
-        </>
     }
 }

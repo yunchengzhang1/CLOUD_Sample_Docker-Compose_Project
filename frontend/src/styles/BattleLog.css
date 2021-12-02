@@ -59,6 +59,10 @@ h2 {
         margin-top: 1.2rem;
     }
 }
+.list-messages {
+    max-height: 60vh;
+    overflow-y: scroll;
+}
 @media (max-width: 1000px) {
     .list-messages {
         height: 30vh;

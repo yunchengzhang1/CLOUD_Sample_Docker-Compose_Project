@@ -215,6 +215,7 @@ module.exports = function routes(app, logger) {
     app.get('/getuserbyid', (req, res) => {
       //console.log(req.body.username);
       console.log(req.body);
+      var userID = req.param('userID');
       // obtain a connection from our pool of connections
       pool.getConnection(function (err, connection){
         if(err){
@@ -223,7 +224,7 @@ module.exports = function routes(app, logger) {
           res.status(400).send('Problem obtaining MySQL connection'); 
         } else {
           // if there is no issue obtaining a connection, execute query and release connection
-          connection.query('SELECT * FROM `db`.`users` WHERE `userID`= ' + req.body.userID, function (err, rows, fields) {
+          connection.query('SELECT * FROM `db`.`users` WHERE `userID`=?',[userID], function (err, results, fields) {
             connection.release();
             if (err) {
               logger.error("Error while fetching values: \n", err);
@@ -232,9 +233,7 @@ module.exports = function routes(app, logger) {
                 "error": "Error obtaining values"
               })
             } else {
-              res.status(200).json({
-                "data": rows
-              });
+              res.end(JSON.stringify(results)); 
             }
           });
         }
@@ -244,6 +243,7 @@ module.exports = function routes(app, logger) {
     // get user by id
     app.get('/getmessagesbyid', (req, res) => {
       //console.log(req.body.username);
+      var messageID = req.param('messageID');
       console.log(req.body);
       // obtain a connection from our pool of connections
       pool.getConnection(function (err, connection){
@@ -253,7 +253,7 @@ module.exports = function routes(app, logger) {
           res.status(400).send('Problem obtaining MySQL connection'); 
         } else {
           // if there is no issue obtaining a connection, execute query and release connection
-          connection.query('SELECT message FROM `db`.`messages` WHERE `battleID`= ' + req.body.battleID, function (err, rows, fields) {
+          connection.query('SELECT message FROM `db`.`messages` WHERE `battleID`=?', [messageID], function (err, results, fields) {
             connection.release();
             if (err) {
               logger.error("Error while fetching values: \n", err);
@@ -262,9 +262,7 @@ module.exports = function routes(app, logger) {
                 "error": "Error obtaining values"
               })
             } else {
-              res.status(200).json({
-                "data": rows
-              });
+              res.end(JSON.stringify(results));
             }
           });
         }
@@ -276,6 +274,7 @@ module.exports = function routes(app, logger) {
     app.get('/getbattlebyid', (req, res) => {
       //console.log(req.body.username);
       console.log(req.body);
+      var battleID = req.param('battleID');
       // obtain a connection from our pool of connections
       pool.getConnection(function (err, connection){
         if(err){
@@ -284,7 +283,7 @@ module.exports = function routes(app, logger) {
           res.status(400).send('Problem obtaining MySQL connection'); 
         } else {
           // if there is no issue obtaining a connection, execute query and release connection
-          connection.query('SELECT * FROM `db`.`battles` WHERE `battleID`= ' + req.body.battleID, function (err, rows, fields) {
+          connection.query('SELECT * FROM `db`.`battles` WHERE `battleID`=?',[battleID], function (err, results, fields) {
             connection.release();
             if (err) {
               logger.error("Error while fetching values: \n", err);
@@ -293,9 +292,7 @@ module.exports = function routes(app, logger) {
                 "error": "Error obtaining values"
               })
             } else {
-              res.status(200).json({
-                "data": rows
-              });
+              res.end(JSON.stringify(results));
             }
           });
         }

@@ -243,7 +243,7 @@ module.exports = function routes(app, logger) {
     // get user by id
     app.get('/getmessagesbyid', (req, res) => {
       //console.log(req.body.username);
-      var messageID = req.param('messageID');
+      var battleID = req.param('battleID');
       console.log(req.body);
       // obtain a connection from our pool of connections
       pool.getConnection(function (err, connection){
@@ -253,7 +253,7 @@ module.exports = function routes(app, logger) {
           res.status(400).send('Problem obtaining MySQL connection'); 
         } else {
           // if there is no issue obtaining a connection, execute query and release connection
-          connection.query('SELECT message FROM `db`.`messages` WHERE `battleID`=?', [messageID], function (err, results, fields) {
+          connection.query('SELECT message FROM `db`.`messages` WHERE `battleID`=?', [battleID], function (err, results, fields) {
             connection.release();
             if (err) {
               logger.error("Error while fetching values: \n", err);

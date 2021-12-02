@@ -107,9 +107,14 @@ export class Repository {
 
     login(username, password){
         let append = "/?username=" + username + "&password=" + password;
+        console.log(username, password);
         return new Promise((resolve, reject) => {
+
             axios.get(`${this.url}/login` + append, this.config)
-                .then(x => resolve(x.data[0].userID))
+                .then(x => {
+                    alert(x);
+                    resolve(x.data[0].userID)
+                })
                 .catch(x => {
                     alert(x);
                     reject(x);

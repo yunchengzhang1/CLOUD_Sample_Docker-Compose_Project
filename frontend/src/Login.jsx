@@ -4,22 +4,31 @@ import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Repository } from './api';
+import axios from 'axios';
 export class Login extends React.Component {
     repository = new Repository();
     state = {
-        name: '',
-        email: '',
+        username: '',
         password: ''
     };
 
-    async validateLogin(){
-        var userID = "unset" 
-
-        this.repository.login(this.state.name, this.state.password).then(x => {
-            userID = x;
+    async validateLogin(e){
+        e.preventDefault();
+        var url = "http://localhost:8000"
+        let append = "/?username=" + this.state.username + "&password=" + this.state.password;
+        var res = await new Promise((resolve, reject) => {
+            axios.get(`${url}/login` + append, this.config)
+                .then(x => {
+                    console.log(x);
+                    resolve(x.data[0].userID)
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
         });
-        console.log("userID", userID);
-        this.props.onSetUser(userID);
+        this.props.onSetUser(res);
+        console.log("valid!")
         return <Redirect to="/battlePage"></Redirect>
     }
     
@@ -45,9 +54,9 @@ export class Login extends React.Component {
                         <input type="info"
                             id="name"
                             name="name"
-                            value={this.state.name}
+                            value={this.state.username}
                             placeholder={"Username"}
-                            onChange={ event => this.setState({ name: event.target.value }) }
+                            onChange={ event => this.setState({ username: event.target.value }) }
                             className="form-control" />
                     </div>
 

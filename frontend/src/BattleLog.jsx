@@ -54,7 +54,7 @@ export class BattleLog extends React.Component{
         }
         console.log("rendering", this.state.messages)
         return <div>
-        <h2 id="battle-log-text" >Battle Log</h2>
+        <h2 id="battle-log-text" >{this.props.battleTopic} Battle Log</h2>
         <div className="list-group">
             {
                 this.state.messages.map(x => 

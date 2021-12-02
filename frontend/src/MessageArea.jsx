@@ -44,12 +44,12 @@ export class MessageArea extends React.Component {
         console.log(this.props.userID)
         if (this.props.battle.user1 === this.props.userID || this.props.battle.user2 === this.props.userID) {
             console.log("got here");
-            return <>
+            return <div>
                 <div>
                     <BattleLog userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />
                 </div>
                 <MessageBox activeBattleID={this.props.battle.battleID} userID={this.props.userID} onMessageSent={text => this.sendMessage(text)} />
-            </>
+            </div>
         }
         return <div>
             <BattleLog userID={this.props.userID} battle={this.props.battle} messages={this.state.messages} />

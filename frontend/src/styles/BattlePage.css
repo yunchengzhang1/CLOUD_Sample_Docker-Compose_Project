@@ -1,9 +1,18 @@
+@media (min-width: 1600px) {
+
+}
+
 .sidebar {
-    width: 24%;
+    z-index: -1;
+    width: 20%;
     float: left;
     position:relative;
     background-color: black;
-    min-height: 100vh;
+    height: 90%;
+    top: 0;
+    bottom: 10rem;
+    position: fixed;
+    overflow-y: scroll;
 }
 
 .battleLog {
@@ -12,6 +21,7 @@
     position:relative;
     color: white;
     padding: .1rem;
+    margin: 1rem 2.5rem;
 }
 
 .battle-page{
@@ -41,5 +51,12 @@
     padding: 1rem .2rem;
 }
 .sidebar {
-    padding: 1.5rem;
+    padding: 5rem 1.5rem 3rem 1.5rem;
+}
+::-webkit-scrollbar {
+    width: .5rem;
+    background-color: black;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #121212;
 }

@@ -1,5 +1,40 @@
 .card{
-    width:395px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+    
+    background-color:rgb(24, 22, 22); 
+    border: 3px solid rgba(88, 88, 88, 0.973);
+    border-radius: 15px;
+}
+
+.card-text{
+    color: #f0eceb;
+    text-align: center;
+    font-weight: bold;
+    
+}
+
+#vs{
+    color:#fdf6f4;
+    text-align: center;
+    
+}
+
+#no-active{
+    background-color:rgb(88, 27, 27);
+    color:rgb(218, 216, 216);
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid rgba(51, 8, 8, 0.973);
+}
+
+#join-battle{
+    border-radius: 15px;
+    border: 2px solid rgba(70, 27, 27, 0.973);
+}
+
+#join-battle:hover{
+    background-color:rgb(182, 42, 42)
+}
+
+#battle-list{
+    background-color:rgb(17, 17, 17)
 }

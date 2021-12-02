@@ -110,7 +110,7 @@ export class Repository {
     }
 
     login(username, password){
-        let append = "/" + username + "/" + password;
+        let append = "/?username=" + username + "&password=" + password;
         return new Promise((resolve, reject) => {
             axios.get(`${this.url}/login` + append, this.config)
                 .then(x => resolve(x.data))

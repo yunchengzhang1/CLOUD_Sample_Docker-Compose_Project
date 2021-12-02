@@ -12,17 +12,13 @@ export class Login extends React.Component {
         password: ''
     };
 
-    async validateLogin(e){
-        e.preventDefault();
+    async validateLogin(){
         var userID = "unset" 
-        // const response = await this.repository.login(this.state.name, this.state.password);
-        // const json = await response.json();
-        // console.log("json" ,json);
         await this.repository.login(this.state.name, this.state.password).then(x => {
+            console.log(x);
             userID = x;
-            console.log("userID", userID);
         });
-        
+        console.log("userID", userID);
         this.props.onSetUser(userID);
         return <Redirect to="/battlePage"></Redirect>
     }
@@ -65,7 +61,7 @@ export class Login extends React.Component {
                             onChange={ event => this.setState({ password: event.target.value }) }
                             className="form-control" />
                     </div>
-                    <button onClick={(e) => this.validateLogin()}>
+                    <button onClick={() => this.validateLogin()}>
                         Login
                     </button>
                 </form>

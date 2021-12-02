@@ -21,11 +21,9 @@ export class BattleLog extends React.Component{
         }
         console.log("rendering", this.props.messages)
         return <div>
-<<<<<<< HEAD
+
         <h2 id="battle-log-text" >{this.props.battle.battleTopic} Battle Log</h2>
-=======
-        <h2 id="battle-log-text" >{this.props.battleTopic} Battle Log</h2>
->>>>>>> ac2a57566c5eb19667926d04e2a764394acc5eea
+
         <div className="list-group">
             {
                 this.props.messages.map(x => 
@@ -37,7 +35,7 @@ export class BattleLog extends React.Component{
                             {x.message.senderID === this.state.userID2 &&
                                 <h4 id="user2" className="card-title">{x.message}</h4>
                             } */}
-                            <h4 id="user2" className="card-title">{x.message}</h4>
+                            <h4 className="card-title">{x.message}</h4>
                             
                         </div>
                     </div>

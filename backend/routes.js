@@ -126,6 +126,32 @@ module.exports = function routes(app, logger) {
     });
   });
 
+    // post username and password
+    app.post('/addfriendship', (req, res) => {
+      //console.log(req.body.username);
+      console.log('hello' + req.body);
+      // obtain a connection from our pool of connections
+      pool.getConnection(function (err, connection){
+        if(err){
+          // if there is an issue obtaining a connection, release the connection instance and log the error
+          logger.error('Problem obtaining MySQL connection',err)
+          res.status(400).send('Problem obtaining MySQL connection'); 
+        } else {
+          // if there is no issue obtaining a connection, execute query and release connection
+          connection.query('INSERT INTO `db`.`friends` (`userID1`, `userID2`) VALUES(\'' + req.body.userID1 + '\', \''+ req.body.userID2 + '\')', function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              // if there is an error with the query, log the error
+              logger.error("Problem inserting into test table: \n", err);
+              res.status(400).send('Problem inserting into table'); 
+            } else {
+              res.status(200).send(`added ${req.body.userID1} to the table!`);
+            }
+          });
+        }
+      });
+    });
+
 
 
   // post username and password

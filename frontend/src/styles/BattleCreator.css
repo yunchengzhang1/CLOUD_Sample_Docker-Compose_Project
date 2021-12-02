@@ -1,23 +1,49 @@
-textarea{
-    width: 99%;
-    resize: none;
-    height: 190px;
-    border: 2px solid rgba(51, 8, 8, 0.973);
-    border-radius: 10px;
+.battle-creator {
+    background: #171717;
 }
-
-textarea:hover{
-    background-color: #ffc7c7;
+.list-group-item {
+    background: #171717;
+    color: white;
+    padding: .5rem 1.5rem;
+    margin: 1.5rem 0rem 0rem 0rem;
+}
+.form-group {
+    padding: .1rem;
+    margin: 2rem.15rem;
+    margin-top: 0;
+}
+.form-group label {
+    float: left;
+    width: 100%;
+}
+.form-group input {
+    float: right;
+}
+.form-group .form-control {
+    float: right;
+    margin: .3rem;
+    width: 100%;
+}
+input[type=text], select {
+    border: 1px solid #993232;
+    box-sizing: border-box;
+}
+input[type=text]:hover {
+    background-color: black;
     border-color: #d42626;
 }
-
-#battle-creator{
-    
-    background-color:rgb(36, 36, 36)
-}
-
-#add-battle{
+button {
     width: 100%;
-    color:#fdf6f4;
-    text-align: center;
+    padding: .5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: darkred;
+    color: black;
+    margin: 1rem 0;
+}
+button:hover {
+    background-color: red;
+}
+button:active {
+    background-color: white;
 }

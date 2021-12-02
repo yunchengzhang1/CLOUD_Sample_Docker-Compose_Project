@@ -37,14 +37,13 @@ export class MessageBox extends React.Component {
     }
 
     render() {
-        return <div>
+        return <div className = "message">
             <h2 id="battle-log-text">Send a Message!</h2>
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="inputMessage" id="battle-log-text">Message</label>
                 <input type="text" className="form-control" id="inputMessage" value={this.state.text} onChange={this.handleChange}/>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            
         </div>
     }
 }

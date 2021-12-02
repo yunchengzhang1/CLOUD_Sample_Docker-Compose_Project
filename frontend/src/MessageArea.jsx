@@ -1,6 +1,7 @@
 import React from "react";
 import equal from 'fast-deep-equal'
 import './styles/MessageArea.css';
+import axios from "axios";
 import { Repository } from "./api";
 import { BattleLog } from './BattleLog';
 import { MessageBox } from './MessageBox';
@@ -42,22 +43,35 @@ export class MessageArea extends React.Component {
             ).catch();
     }
 
-    updateScore() {
+    async updateScore() {
         console.log("updating Score");
-        var score1 =0;
-        var score2 =0;
-        var score =0;
+        let url = "http://localhost:8000"
+        let promises = [];
         for(var i = 0; i < this.state.messages.length; i++){
-            if(this.state.messages[i].userID === this.props.battle.user1){
-                this.repository.getBattleScore(this.state.messages[i].messageID, this.props.battle.user1).then(x => {
-                    var score = x.data;
-                    console.log("score", score)
-                    score1 = score1 + score
+            let append = "/?battleID=" + this.state.messages[i].battleID + "&userID=" + this.props.battle.user1;
+            promises.push(
+                axios.get(`${url}/getbattlescore`+append, this.config).then(response => {
+                    console.log(response.data);
                 })
-            }
-            //this.repository.getBattleScore(messages[i].messageID, this. props)
+            )
         }
-       //this.repository.getBattleScore()
+        Promise.all(promises);
+
+    //     var score1 =0;
+    //     var score2 =0;
+    //     var score =0;
+    //     for(var i = 0; i < this.state.messages.length; i++){
+    //         if(this.state.messages[i].userID === this.props.battle.user1){
+    //             await this.repository.getBattleScore(this.state.messages[i].messageID, this.props.battle.user1).then(x => {
+    //                 var score = x.data;
+    //                 console.log("score", x.data)
+    //                 score1 = score1 + score
+    //             })
+    //         }
+    //         //this.repository.getBattleScore(messages[i].messageID, this. props)
+    //     }
+    //     console.log("score1", score1)
+    //    //this.repository.getBattleScore()
     }
 
     render() {

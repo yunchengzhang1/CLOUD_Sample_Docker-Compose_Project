@@ -8,17 +8,21 @@ export class BattleMessage extends React.Component {
         likedByUser: false
     }
 
-    handleLike() {
-        this.setState({ likedByUser: !this.state.likedByUser })
-        if (!this.state.likedByUser) {
-            console.log("liking message")
+    async handleLike() {
+        var like = !this.state.likedByUser 
+       console.log("like", like);
+        if (like) {
             this.repository.likeMessage(this.props.message.messageID, this.props.userID)
+            console.log("liked message")
         }
         else {
-            console.log("unliking message")
             this.repository.unlikeMessage(this.props.message.messageID, this.props.userID)
+            
+            console.log("unliking message")
         }
+        this.setState({ likedByUser: like })
         this.props.onUpdateScore();
+        console.log("updating score");
     }
 
     render() {

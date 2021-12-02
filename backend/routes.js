@@ -3,6 +3,7 @@ const pool = require('./db')
 module.exports = function routes(app, logger) {
   // GET /
   app.get('/', (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
     res.status(200).send('Go to 0.0.0.0:3000.');
   });
 

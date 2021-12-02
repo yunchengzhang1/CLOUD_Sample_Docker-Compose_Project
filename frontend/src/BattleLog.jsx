@@ -8,67 +8,64 @@ export class BattleLog extends React.Component{
     repository = new Repository();
     // [messages, setMessages] = useState(undefined);
     state = {
-        messages:[]
+        messages:[],
+        userID1: "",
+        userID2: ""
     }
 
-    async componentDidUpdate(prevProps) {
-        // console.log("getting messages");
-        // console.log(this.props.battleID);
-        // this.repository.getMessagesById(this.props.battleID)
-        //     .then(
-        //         x =>{
-        //             this.setState({messages: x.data});
-        //         }
-        //     )
+    componentDidUpdate(prevProps) {
+        
         if (!equal (this.props.battleID, prevProps.battleID)){
-            await this.updateMessages();
+            this.updateMessages();
             
         }
     }
 
     async componentDidMount(){
-            this.repository.getMessagesById(this.props.battleID)
+            await this.repository.getMessagesById(this.props.battleID)
             .then(
                 x =>{
-                    this.setState({messages: x.data});
+                    console.log("messagesbyID returns", x)
+                    this.setState({messages: x});
                 }
             )
-            // console.log("battleID defined")
-            // const res = new Promise((resolve, reject) => {
-            //     axios.get(`${url}/getmessagesbyid` ,props.battleID)
-            //         .then(
-            //             x => {
-            //                 // console.log(x.data)
-            //                 resolve(x.data)})
-            //         .catch(x => {
-            //             alert(x);
-            //             reject(x);
-            //         })
-            // });
-            // console.log(res);
-            // var arr=["hi"];
-            // this.setState(res);
+
     }
 
-    updateMessages(){
+    async updateMessages(){
         console.log("update messages");
 
-        this.repository.getMessagesById(this.props.battleID)
-        .then(
-            x =>{
-                this.setState(x.data);
-                console.log(x);
-            }
-        ) 
+        await this.repository.getMessagesById(this.props.battleID)
+            .then(
+                x =>{
+                    this.setState({messages: x});
+                    console.log("messagesbyID returns", x)
+                }
+            )
+        console.log("before Render");
     }
     
     render(){
         if(this.props.battleID === undefined){
             return <div id="battle-log-text">No Battle Selected</div>
         }
+        if(this.state.messages === undefined){
+            return <div id="battle-log-text">No Messages</div>
+        }
+        console.log("rendering", this.state.messages)
         return <div>
         <h2 id="battle-log-text" >Battle Log</h2>
-        <div >Showing log for{this.props.battle}</div>
+        <div className="list-group">
+            {
+                this.state.messages.map(x => 
+                    <div className="list-group-item">
+                        <div className="card text-white">
+                            <h4 id="card-title">{x.message}</h4>
+                        </div>
+                    </div>
+                )
+            }
+        </div>
     </div>
     }
     

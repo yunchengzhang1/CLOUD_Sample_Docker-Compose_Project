@@ -7,6 +7,7 @@ import { MessageBox } from './MessageBox';
 import { Repository } from './api';
 
 import { Redirect } from 'react-router-dom';
+import { MessageArea } from './MessageArea';
 
 export class BattlePage extends React.Component {
     repository = new Repository();
@@ -15,15 +16,13 @@ export class BattlePage extends React.Component {
         battles: []
     };
 
-    async addBattle(battle){
+    async addBattle(battle) {
         await this.repository.addBattle(battle);
         await this.repository.getBattles().then(x => {
             console.log(x.data);
-            this.setState({battles: x.data})});
-        
+            this.setState({battles: x.data})
+        });
     }
-
-
 
     setActiveBattle(battleID) {
         console.log("Selected battleID", battleID);
@@ -36,15 +35,15 @@ export class BattlePage extends React.Component {
         return this.state.battles.filter(battle => {
             return battle.battleID === battleID;
         })
-        
+
     }
-    
+
     setUserID(userID){
         this.setState({currentUserID: userID});
         this.setState({loggedIn: true})
     }
     sendMessage(text) {
-        this.repository.postMessage();
+        this.repository.postMessage(text);
     }
     async updateBattles() {
         await this.repository.getBattles().then(x => {
@@ -58,24 +57,35 @@ export class BattlePage extends React.Component {
         console.log("onchange triggered")
     }
 
+    updateBattleLog(){
+        
+    }
+
     render() {
         if(!this.props.isAuthenticated){
             console.log("authenticated");
             return <Redirect to="/"></Redirect>
         }
         return <div id="battle-page">
+            <div className="topnav">
+                {/*<img class = "navLogo" src="imageurl" alt="logo for top navbar"/>*/}
+                <h1>*Flame War*</h1>
+                {/*<img className="loginPic" src="https://via.placeholder.com/55" alt="login pic"/>*/}
+                {/*<h2>{this.props.username}</h2>*/}
+            </div>
             <div className="sidebar">
                 <div>
                     <BattleCreator onBattleAdded={ battle => this.addBattle(battle)} userID={this.props.userID}/>
-                    <BattleList onUpdateBattles={() => this.updateBattles()} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/> 
+                    <BattleList onUpdateBattles={() => this.updateBattles()} userID={this.props.userID} onBattleSelected={battleID => this.setActiveBattle(battleID)} battles={this.state.battles}/>
                 </div>
             </div>
             <div className="battleLog">
                 <div>
-                    <BattleLog battleID={this.state.activeBattle.battleID} />
+                    <MessageArea battle={this.state.activeBattle} userID={this.props.userID} ></MessageArea>
+                    {/* <BattleLog battle={this.state.activeBattle} />
                     {this.state.activeBattle.userID1 === this.props.userId && (
-                        <MessageBox activeBattleID={this.state.activeBattle.battleID} userID={this.state.currentUserID} onMessageSent={text => this.sendMessage(text)}/>
-                    )}
+                        <MessageBox activeBattleID={this.state.activeBattle.battleID} userID={this.props.userID} onMessageSent={text => this.sendMessage(text)}/>
+                    )} */}
                 </div>
             </div>
         </div>

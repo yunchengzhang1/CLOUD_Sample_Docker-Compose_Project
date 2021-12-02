@@ -10,7 +10,7 @@ export class BattleCreator extends React.Component {
         description: ""
     }
 
-    addBattle = (e) => { 
+    addBattle = (e) => {
         console.log("adding battle");
         e.preventDefault();
         let battle = new Battle()
@@ -18,15 +18,14 @@ export class BattleCreator extends React.Component {
         battle.battleTopic = this.state.title;
         battle.user1 = this.props.userID;
         battle.battleID = Date.now().toString(36) + Math.random().toString(36);
-        this.props.onBattleAdded(battle); 
+        this.props.onBattleAdded(battle);
         this.setState({title: ""});
         this.setState({description: ""});
     };
 
 
     render() {
-        return <>
-            <div id="battle-creator" className="list-group">
+        return <div id="battle-creator" className="list-group-item">
                 <h2 id="add-battle" className="list-group-item" >Add Battle</h2>
                 <form onSubmit={this.addBattle}>
                     <div className="form-group">
@@ -40,6 +39,5 @@ export class BattleCreator extends React.Component {
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
-        </>
     }
 }

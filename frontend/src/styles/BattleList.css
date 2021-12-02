@@ -1,40 +1,63 @@
-.card{
-    
-    background-color:rgb(24, 22, 22); 
-    border: 3px solid rgba(88, 88, 88, 0.973);
-    border-radius: 15px;
+.card-body {
+    margin: .2rem;
 }
-
-.card-text{
-    color: #f0eceb;
-    text-align: center;
-    font-weight: bold;
-    
+.card-body h5 {
+    font-size: large;
+    margin: 0.5rem;
 }
-
-#vs{
-    color:#fdf6f4;
-    text-align: center;
-    
+.card-body h6 {
+    font-size: medium;
+    margin: 0;
 }
-
-#no-active{
-    background-color:rgb(88, 27, 27);
-    color:rgb(218, 216, 216);
-    text-align: center;
-    border-radius: 15px;
-    border: 2px solid rgba(51, 8, 8, 0.973);
+.card-text {
+    margin: .7rem 0 0 0;
 }
-
-#join-battle{
-    border-radius: 15px;
-    border: 2px solid rgba(70, 27, 27, 0.973);
+.card-body {
+    padding: 1rem;
 }
-
-#join-battle:hover{
-    background-color:rgb(182, 42, 42)
+.card-body:hover {
+    background-color: #260000;
 }
-
-#battle-list{
-    background-color:rgb(36, 36, 36)
+.list-group-item {
+    color: white;
+    padding: .5rem 1rem;
+}
+.battle-creator-list-group {
+    margin: 2rem;
+}
+.form-group {
+    padding: .1rem;
+    margin: 2rem.15rem;
+    margin-top: 0;
+}
+.form-group label {
+    float: left;
+    width: 100%;
+}
+.form-group input {
+    float: right;
+}
+.form-group .form-control {
+    float: right;
+    margin: .3rem;
+    width: 90%;
+}
+button {
+    width: 100%;
+    padding: .5rem;
+    border-radius: 6px;
+    border: none;
+    background-color: darkred;
+    margin: 1rem 0;
+    color: black;
+}
+button:hover {
+    background-color: red;
+}
+button:active {
+    background-color: white;
+}
+.no-active {
+    background: darkred;
+    color: white;
 }

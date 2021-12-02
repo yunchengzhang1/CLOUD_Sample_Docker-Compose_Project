@@ -4,28 +4,37 @@ import { v1 as uuidv1 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { Repository } from './api';
+import axios from 'axios';
 export class Login extends React.Component {
     repository = new Repository();
     state = {
-        name: '',
-        email: '',
+        username: '',
         password: ''
     };
 
-    async validateLogin(){
-        var userID = ""//Date.now().toString(36) + Math.random().toString(36)""; //uniqueID generator
-        this.props.onSetUser(userID);
-        await this.repository.login(this.state.name, this.state.password).then(x => {
-            console.log("get user by id", x)
-            userID = x.userID;
+    async validateLogin(e){
+        e.preventDefault();
+        var url = "http://localhost:8000"
+        let append = "/?username=" + this.state.username + "&password=" + this.state.password;
+        var res = await new Promise((resolve, reject) => {
+            axios.get(`${url}/login` + append, this.config)
+                .then(x => {
+                    console.log(x);
+                    resolve(x.data[0].userID)
+                })
+                .catch(x => {
+                    alert(x);
+                    reject(x);
+                })
         });
+        this.props.onSetUser(res);
+        console.log("valid!")
         return <Redirect to="/battlePage"></Redirect>
     }
     
     render (){
         const isAuthenticated = this.props.isAuthenticated;
         if (isAuthenticated){
-            console.log("authenticated");
             return <Redirect to="/battlePage"></Redirect>
         }
         return <div>
@@ -45,9 +54,9 @@ export class Login extends React.Component {
                         <input type="info"
                             id="name"
                             name="name"
-                            value={this.state.name}
+                            value={this.state.username}
                             placeholder={"Username"}
-                            onChange={ event => this.setState({ name: event.target.value }) }
+                            onChange={ event => this.setState({ username: event.target.value }) }
                             className="form-control" />
                     </div>
 
@@ -61,7 +70,7 @@ export class Login extends React.Component {
                             onChange={ event => this.setState({ password: event.target.value }) }
                             className="form-control" />
                     </div>
-                    <button onClick={e => this.validateLogin()}>
+                    <button onClick={(e) => this.validateLogin(e)}>
                         Login
                     </button>
                 </form>

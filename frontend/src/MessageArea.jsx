@@ -45,7 +45,7 @@ export class MessageArea extends React.Component {
 
     async updateScore() {
         console.log("updating Score");
-        let url = "http://localhost:8000"
+        let url = "http://ec2-52-15-121-86.us-east-2.compute.amazonaws.com:8000"
         let promises = [];
         for(var i = 0; i < this.state.messages.length; i++){
             let append = "/?battleID=" + this.state.messages[i].battleID + "&userID=" + this.props.battle.user1;

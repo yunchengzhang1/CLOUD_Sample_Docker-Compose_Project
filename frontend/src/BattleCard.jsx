@@ -10,7 +10,7 @@ export class BattleCard extends React.Component {
     }
 
     async componentDidMount() {
-        var url = "http://localhost:8000"
+        var url = "http://ec2-52-15-121-86.us-east-2.compute.amazonaws.com:8000"
         let append1 = "/?userID=" + this.props.battle.user1;
         let append2 = "/?userID=" + this.props.battle.user2;
         await axios.get(`${url}/getuserbyid` + append1, this.config)

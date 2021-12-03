@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 export class Repository {
-    url = "http://52.15.121.86:8000"
+    url = "http://ec2-52-15-121-86.us-east-2.compute.amazonaws.com:8000"
 
     config = {
         headers: {

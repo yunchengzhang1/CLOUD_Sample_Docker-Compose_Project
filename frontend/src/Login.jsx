@@ -15,7 +15,7 @@ export class Login extends React.Component {
 
     async validateLogin(e){
         e.preventDefault();
-        var url = "http://52.15.121.86:8000/"
+        var url = "http://ec2-52-15-121-86.us-east-2.compute.amazonaws.com:8000"
         let append = "/?username=" + this.state.username + "&password=" + this.state.password;
         var res = await new Promise((resolve, reject) => {
             axios.get(`${url}/login` + append, this.config)

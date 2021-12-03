@@ -19,5 +19,5 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "proxy": "http://52.15.121.86:3000/"
+  "proxy": "http://localhost:3000/"
 }

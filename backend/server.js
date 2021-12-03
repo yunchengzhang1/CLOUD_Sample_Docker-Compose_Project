@@ -7,6 +7,8 @@ const { log, ExpressAPILogMiddleware } = require('@rama41222/node-logger');
 // const mysqlConnect = require('./db');
 const routes = require('./routes');
 
+const domainsFromENV = process.env.CORS_DOMAINS || ""
+
 // set up some configs for express.
 const config = {
   name: 'sample-express-app',
@@ -24,6 +26,7 @@ const logger = log({ console: true, file: false, label: config.name });
 app.use(bodyParser.json());
 app.use(cors({
   origin: '*'
+  
 }));
 app.use(ExpressAPILogMiddleware(logger, { request: true }));
 
